@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+  get 'menuclientes/indedx'
+  end
+
   devise_for :users
 
 
@@ -19,7 +23,7 @@ Rails.application.routes.draw do
 
 
   namespace :admin do
-    get 'dashboard/index'
+    get 'menus/index'
   end
   namespace :admin do
     get '', to: 'dashboard#index', as: '/'
@@ -29,7 +33,8 @@ Rails.application.routes.draw do
               :proteins,
               :carbohydrates,
               :salads,
-              :menus
+              :menus,
+              :menuclientes
 
   end
 

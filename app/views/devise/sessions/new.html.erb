@@ -7,11 +7,11 @@
 
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => 'form-signin'}) do |f| %>
-      <h2 class="form-signin-heading">Traductores</h2>
+      <h2 class="form-signin-heading">Manzana Naranja</h2>
       <div class="login-wrap">
 
         <%= f.email_field :email, autofocus: true, :class => 'form-control', :type=>'text', :placeholder=>'Ingrese su email' %>
-        <%= f.password_field :password, autocomplete: "off", :class => 'form-control', :type=>'text', :placeholder=>'Ingrese su email'  %>
+        <%= f.password_field :password, autocomplete: "off", :class => 'form-control', :placeholder=>'Contraseña'  %>
 
         <%= f.submit "Ingresar", :class=>'btn btn-lg btn-login btn-block' %>
 

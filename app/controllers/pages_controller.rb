@@ -33,7 +33,7 @@ class PagesController < ApplicationController
     @menuCliente = Menucliente.find_by_date(params[:fecha])
 
     #falta poner el usuario
-    @menuCliente.update_attributes(:estado=>1, :protein_id => params[:proteina], :soup_id => params[:sopa], :carbohidrate_id=> params[:carbo], :salad_id => params[:ensalada],:wok_id =>params[:wok])
+    @menuCliente.update_attributes(:estado=>1, :protein_id => params[:proteina], :soup_id => params[:sopa], :carbohydrate_id=> params[:carbo], :salad_id => params[:ensalada],:wok_id =>params[:wok])
 
 
     render layout: false
