@@ -128,166 +128,180 @@
 
 <script !src="">
 
-  $(function(){
 
-      var porcentaje = 0;
-
-      psopa = 0;
-      pwok = 0;pcarbo = 0;
-      pensalada = 0;
-      pproteina = 0;
-      total = 0;
-
-      $('.sopa a').click(function(){
-          idsopa = $(this).data('idsopa');
-          texto = $(this).find('strong').html();
-
-          psopa = 20;
-          updateP();
-
-          $('#sopa .box-none').html(texto)
-          $('#sopa').addClass('b-color')
-          $('.cd-overlay').trigger('click');
-
-          return false
-      });
-
-
-
-      $('.wok a').click(function(){
-          idwok = $(this).data('idwok');
-          texto = $(this).find('strong').html();
-
-          pwok = 20;
-          updateP();
-
-          $('#wok .box-none').html(texto)
-          $('#wok').addClass('b-color')
-          $('.cd-overlay').trigger('click');
-
-          return false
-      });
-
-
-
-      $('.proteinas a').click(function(){
-          idproteina = $(this).data('idproteina');
-          texto = $(this).find('strong').html();
-
-          pproteina = 20;
-          updateP();
-
-          $('#proteinas .box-none').html(texto)
-          $('#proteinas').addClass('b-color')
-          $('.cd-overlay').trigger('click');
-
-          return false
-      });
+    var ready;
+    ready = function() {
 
 
 
 
-      $('.carbohidratos a').click(function(){
-          idcarbo = $(this).data('idcarbo');
-          texto = $(this).find('strong').html();
+        var porcentaje = 0;
 
-          pcarbo = 20;
-          updateP();
+        psopa = 0;
+        pwok = 0;pcarbo = 0;
+        pensalada = 0;
+        pproteina = 0;
+        total = 0;
 
-          $('#carbo .box-none').html(texto)
-          $('#carbo').addClass('b-color')
-          $('.cd-overlay').trigger('click');
+        $('.sopa a').click(function(){
+            idsopa = $(this).data('idsopa');
+            texto = $(this).find('strong').html();
 
-          return false
-      });
+            psopa = 20;
+            updateP();
 
+            $('#sopa .box-none').html(texto)
+            $('#sopa').addClass('b-color')
+            $('.cd-overlay').trigger('click');
 
-
-
-      $('.ensalada a').click(function(){
-          idensalada = $(this).data('idensalada');
-          texto = $(this).find('strong').html();
-
-          pensalada = 20;
-          updateP();
-
-          $('#ensalada .box-none').html(texto)
-          $('#ensalada').addClass('b-color')
-          $('.cd-overlay').trigger('click');
-
-          return false
-      });
+            return false
+        });
 
 
 
+        $('.wok a').click(function(){
+            idwok = $(this).data('idwok');
+            texto = $(this).find('strong').html();
 
-      function updateP(){
-        total =   psopa + pwok + pcarbo + pensalada + pproteina
-          $('#porce span').html(total)
-      }
+            pwok = 20;
+            updateP();
+
+            $('#wok .box-none').html(texto)
+            $('#wok').addClass('b-color')
+            $('.cd-overlay').trigger('click');
+
+            return false
+        });
 
 
 
-      $('#porce').click(function(){
-          if(total == 100){
+        $('.proteinas a').click(function(){
+            idproteina = $(this).data('idproteina');
+            texto = $(this).find('strong').html();
 
+            pproteina = 20;
+            updateP();
 
-              function showData(data){
-                  $('.respuesta2').html(data);
-              };
+            $('#proteinas .box-none').html(texto)
+            $('#proteinas').addClass('b-color')
+            $('.cd-overlay').trigger('click');
 
-              function loader(data){
-                  //  $('#formc').fadeOut();
-              };
-
-              function error(data){
-                  alert("Error enviados los datos");
-              };
-
-              function showErrors(errors){
-
-              }
-
-              function complete(a){
-
-              }
+            return false
+        });
 
 
 
 
+        $('.carbohidratos a').click(function(){
+            idcarbo = $(this).data('idcarbo');
+            texto = $(this).find('strong').html();
+
+            pcarbo = 20;
+            updateP();
+
+            $('#carbo .box-none').html(texto)
+            $('#carbo').addClass('b-color')
+            $('.cd-overlay').trigger('click');
+
+            return false
+        });
 
 
-              $.ajax({
-                  async: true,
-                  type: "POST",
-                  data: {
-                      proteina:idproteina,
-                      sopa:idsopa,
-                      carbo:idcarbo,
-                      wok:idwok,
-                      ensalada:idensalada,
-                      fecha: '<%= params[:fecha] %>'
-                  },
-                  beforeSend:loader,
-                  error:error,
-                  success: function (msg) {
-                      console.log(msg)
-                      window.location.href="/mi-cuenta-menu-del-dia.html";
 
 
-                  },
-                  url:'<%= agregarmenudia_path %>'
-              });
+        $('.ensalada a').click(function(){
+            idensalada = $(this).data('idensalada');
+            texto = $(this).find('strong').html();
+
+            pensalada = 20;
+            updateP();
+
+            $('#ensalada .box-none').html(texto)
+            $('#ensalada').addClass('b-color')
+            $('.cd-overlay').trigger('click');
+
+            return false
+        });
 
 
-          }else{
+
+
+        function updateP(){
+            total =   psopa + pwok + pcarbo + pensalada + pproteina
+            $('#porce span').html(total)
+        }
+
+
+
+        $('#porce').click(function(){
+            if(total == 100){
+
+
+                function showData(data){
+                    $('.respuesta2').html(data);
+                };
+
+                function loader(data){
+                    //  $('#formc').fadeOut();
+                };
+
+                function error(data){
+                    alert("Error enviados los datos");
+                };
+
+                function showErrors(errors){
+
+                }
+
+                function complete(a){
+
+                }
+
+
+
+
+
+
+                $.ajax({
+                    async: true,
+                    type: "POST",
+                    data: {
+                        proteina:idproteina,
+                        sopa:idsopa,
+                        carbo:idcarbo,
+                        wok:idwok,
+                        ensalada:idensalada,
+                        fecha: '<%= params[:fecha] %>'
+                    },
+                    beforeSend:loader,
+                    error:error,
+                    success: function (msg) {
+                        console.log(msg)
+                        window.location.href="/mi-cuenta-menu-del-dia.html";
+
+
+                    },
+                    url:'<%= agregarmenudia_path %>'
+                });
+
+
+            }else{
                 alert('Debes de completar tu pedido')
-          }
-          return false;
-      })
+            }
+            return false;
+        })
 
 
 
 
-  })
+
+
+    };
+
+    $(document).ready(ready);
+    $(document).on('page:load', ready);
+
+
+
+
 </script>
