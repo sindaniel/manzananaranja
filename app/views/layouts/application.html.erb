@@ -1,14 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Manzana</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <title>Manzana Naranja</title>
+  <% javascript_include_tag 'application' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'bootstrap.min',
+                             'main',
+                             'orange',
+                             'owl.carousel',
+                             'owl.transitions',
+                             'lightbox',
+                             'animate.min',
+                             'rateit',
+                             'bootstrap-select.min'
+  %>
+  <%= yield :head %>
+  <% # javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="cnt-home">
 
-<%= yield %>
+  <!--header start-->
+  <%= render 'includes/header' %>
+  <!--header end-->
+
+  <!--sidebar end-->
+
+  <div class="body-content" id="top-banner-and-menu">
+      <%= yield %>
+</div>
+
+
+
+
+
+  <%= render 'includes/footer' %>
+
+
+  <%=  javascript_include_tag  'jquery-1.11.1.min',
+                               'bootstrap.min',
+                               'bootstrap-hover-dropdown.min',
+                               'owl.carousel.min',
+                               'echo.min',
+                               'jquery.easing-1.3.min',
+                               'bootstrap-slider.min',
+                               'jquery.rateit.min',
+                               'lightbox.min',
+                               'bootstrap-select.min',
+                               'wow.min',
+                               'scripts'
+  %>
+  <%= yield :footer %>
 
 </body>
 </html>

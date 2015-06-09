@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manzana Naranja</title>
+  <% javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'admin/bootstrap.min',
+                             'admin/bootstrap-reset',
+                             'admin/font-awesome/css/font-awesome',
+                             'admin/jquery-easy-pie-chart/jquery.easy-pie-chart',
+                             'admin/style',
+                             'admin/style-responsive',
+                             'admin/data-turbolinks-track' => true %>
+  <%= yield :head %>
+  <% # javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<section id="container" >
+  <!--header start-->
+  <%= render 'admin/includes/header' %>
+  <!--header end-->
+  <!--sidebar start-->
+  <%= render 'admin/includes/menu' %>
+  <!--sidebar end-->
+
+  <section id="main-content">
+    <section class="wrapper">
+      <%= yield %>
+    </section>
+  </section>
+
+  <%= render 'admin/includes/footer' %>
+
+
+  <%=  javascript_include_tag  'admin/jquery.js',
+                               'admin/bootstrap.min',
+                               'admin/jquery.dcjqaccordion.2.7',
+                               'admin/jquery.scrollTo.min',
+                               'admin/jquery.nicescroll',
+                               'admin/respond.min',
+                               'admin/common-scripts'
+  %>
+  <%= yield :footer %>
+</section>
+</body>
+</html>

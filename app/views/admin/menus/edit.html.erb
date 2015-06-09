@@ -1,0 +1,174 @@
+<div class="col-lg-12">
+  <section class="panel">
+    <header class="panel-heading">
+      Editar Menu
+    </header>
+    <div class="panel-body">
+
+
+
+
+      <%= form_for @menu, :url => admin_menu_path, :method=>'put'  do |f|  %>
+
+
+            <div class="col-md-12">
+              <%= f.label :date, 'Fecha', :class=>'col-lg-1 col-sm-2 control-label' %>
+              <div class="col-lg-11">
+                  <%= f.text_field :date, :class =>'form-control', :readonly=>true  %>
+              </div>
+            </div>
+          <br/>
+
+
+          <br/><br/>
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <header class="panel-heading">
+             Proteinas
+            </header>
+            <br/>
+            <%= hidden_field_tag 'menu[protein_ids][]', nil %>
+            <% Protein.all.each do |protein| %>
+                <div class="form-group">
+                  <%= check_box_tag 'menu[protein_ids][]', protein.id, @menu.protein_ids.include?(protein.id), id: dom_id(protein)  %>
+                  <%= label_tag  dom_id(protein),  protein.name %>
+                </div>
+            <% end %>
+
+          </div>
+
+
+
+
+          <div class="col-md-6">
+
+            <header class="panel-heading">
+              Carbohidratos
+            </header>
+            <br/>
+            <%= hidden_field_tag 'menu[carbohydrate_ids][]', nil %>
+            <% Carbohydrate.all.each do |carbohydrate| %>
+                <div class="form-group">
+                  <%= check_box_tag 'menu[carbohydrate_ids][]', carbohydrate.id, @menu.carbohydrate_ids.include?(carbohydrate.id), id: dom_id(carbohydrate)  %>
+                  <%= label_tag  dom_id(carbohydrate),  carbohydrate.name %>
+                </div>
+            <% end %>
+
+          </div>
+
+
+
+        </div>
+
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <header class="panel-heading">
+                Ensaladas
+              </header>
+              <br/>
+              <%= hidden_field_tag 'menu[salad_ids][]', nil %>
+              <% Salad.all.each do |salad| %>
+                  <div class="form-group">
+                    <%= check_box_tag 'menu[salad_ids][]', salad.id, @menu.salad_ids.include?(salad.id), id: dom_id(salad)  %>
+                    <%= label_tag  dom_id(salad),  salad.name %>
+                  </div>
+              <% end %>
+
+            </div>
+
+
+
+
+
+            <div class="col-md-6">
+
+              <header class="panel-heading">
+                Sopas
+              </header>
+              <br/>
+              <%= hidden_field_tag 'menu[soup_ids][]', nil %>
+              <% Soup.all.each do |soup| %>
+                  <div class="form-group">
+                    <%= check_box_tag 'menu[soup_ids][]', soup.id, @menu.soup_ids.include?(soup.id), id: dom_id(soup)  %>
+                    <%= label_tag  dom_id(soup),  soup.name %>
+                  </div>
+              <% end %>
+
+            </div>
+
+
+
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <header class="panel-heading">
+                Wok
+              </header>
+              <br/>
+              <%= hidden_field_tag 'menu[wok_ids][]', nil %>
+              <% Wok.all.each do |wok| %>
+                  <div class="form-group">
+                    <%= check_box_tag 'menu[wok_ids][]', wok.id, @menu.wok_ids.include?(wok.id), id: dom_id(wok)  %>
+                    <%= label_tag  dom_id(wok),  wok.name %>
+                  </div>
+              <% end %>
+
+            </div>
+          </div>
+
+
+
+
+
+          <div class="form-group" >
+            <%= f.submit 'Guardar', :class=> 'btn btn-info ' %>
+            <%=  link_to 'Cancelar', admin_menus_path, :class=>'btn btn-warning' %>
+          </div>
+
+
+      <% end %>
+
+
+
+
+
+
+    </div>
+  </section>
+</div>
+
+
+
+<% content_for :head do %>
+
+
+    <%= stylesheet_link_tag    'admin/advanced-datatable/media/css/demo_page',
+                               'admin/advanced-datatable/media/css/demo_table',
+                               'admin/data-tables/DT_bootstrap'
+    %>
+
+
+<% end %>
+
+
+
+<% content_for :footer do %>
+
+
+    <%=  javascript_include_tag 'admin/form-component'
+
+    %>
+
+
+<% end %>
+
+

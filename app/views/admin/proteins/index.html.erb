@@ -1,0 +1,99 @@
+<div class="row">
+
+  <div class="col-lg-12">
+    <section class="panel">
+      <header class="panel-heading">
+        Proteinas
+      </header>
+
+
+      <div class="panel-body">
+
+
+        <!-- /.row -->
+        <% if flash[:notice] %>
+
+            <div class="alert alert-success fade in">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="fa fa-times"></i>
+              </button>
+              <%= flash[:notice] %>
+            </div>
+
+
+        <% end %>
+
+
+        <div class="adv-table">
+
+          <%= link_to 'Agregar Proteina', new_admin_protein_path, :class=>'btn btn-shadow btn-primary' %>
+          <div id="example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+            <div class="row-fluid">
+
+              <div class="span6">
+                <form class="dataTables_filter" id="example_filter">
+                  <label>Buscar: <input type="text" class="form-control" name="codigo"></label>
+                </form>
+              </div></div>
+
+
+            <table class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+              <thead>
+
+
+              <th rowspan="1" colspan="1">Nombre</th>
+              <th rowspan="1" colspan="1">Acciones</th>
+              </thead>
+
+              <tfoot>
+              <tr>
+
+                <th rowspan="1" colspan="1">Nombre</th>
+                <th rowspan="1" colspan="1">Acciones</th>
+
+              </tfoot>
+              <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+              <% @proteins.each do |protein| %>
+                  <tr>
+                    <td><%= protein.name %></td>
+                    <td>
+                      <%= link_to 'Editar', edit_admin_protein_path(protein.id), :class=>'btn btn-info' %>
+                      <%= link_to 'Eliminar', {:controller => 'admin/proteins', :action => 'destroy', :id => protein.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
+                    </td>
+                  </tr>
+
+              <% end %>
+
+
+              </tbody>
+            </table>
+            <div class="row-fluid">
+              <div class="span6">
+
+              </div>
+              <div class="span6"><div class="dataTables_paginate paging_bootstrap pagination">
+
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+
+
+
+<% content_for :head do %>
+
+
+    <%= stylesheet_link_tag    'admin/advanced-datatable/media/css/demo_page',
+                               'admin/advanced-datatable/media/css/demo_table',
+                               'admin/data-tables/DT_bootstrap'
+    %>
+
+
+<% end %>

@@ -1,4 +1,28 @@
 Rails.application.routes.draw do
+
+  devise_for :users
+
+
+  root 'pages#index'
+  get 'micuenta.html' => 'pages#micuenta'
+
+  namespace :admin do
+    get 'dashboard/index'
+  end
+  namespace :admin do
+    get '', to: 'dashboard#index', as: '/'
+
+    resources :soups,
+              :woks,
+              :proteins,
+              :carbohydrates,
+              :salads,
+              :menus
+
+  end
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

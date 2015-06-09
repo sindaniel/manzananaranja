@@ -1,0 +1,2 @@
+module Admin::SaladsHelper
+end
