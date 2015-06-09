@@ -1,0 +1,236 @@
+
+
+  <div class="container">
+
+    <section class="section featured-product wow fadeInUp">
+
+
+
+      <h3 class="tit-inter"><span>Mi Cuenta</span></h3>
+
+      <div class="row box-quehacemos" style="margin-bottom:30px;">
+        <div class="col-sm-12"><h3>Menú Disponible</h3></div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-4">
+          <div class="box-dats">
+            <p>Usted adquirio el plan:</p>
+            <h1>Estilo de Vida</h1>
+            <h3>20 Platos</h3>
+            <h4 class="tex-justo">Sus platos se organizon desde el<br> <b>25 mayo 2015</b> hasta el <b>23 Junio 2015</b></h4>
+
+          </div></div>
+
+        <div class="col-sm-7"><div class="box-dats">
+          <div class="como-funciona-bg"></div>
+        </div></div>
+
+      </div>
+
+      <div class="row product-comparison" style="margin:30px 0 50px 0;">
+
+
+
+        <%
+           mesActual = Date.today.strftime("%m")
+           anioActual = Date.today.strftime("%Y")
+        %>
+
+        <%
+           fechaDelPrimerMes = anioActual+'-'+mesActual+'-'+'01'
+           fechaDelSegundoMes = fechaDelPrimerMes.to_date + 1.months
+
+
+           diasPrimerMes = fechaDelPrimerMes.to_date.end_of_month.day
+           fechaDelSegundoMes = fechaDelSegundoMes.to_date.end_of_month.day
+        %>
+
+        <% @date = Date.today  %>
+        <% fechaDelPrimerMes.to_date.strftime("%w")%>
+
+        <div class="col-md-6">
+          <h3>JUNIO 2015</h3>
+          <div class="table-responsive table-meses">
+            <table class="table table-bordered inner-top-vs">
+
+
+
+
+
+              <tr>
+                <th width="20%">LUNES</th>
+                <th width="20%">MARTES</th>
+                <th width="20%">MIÉRCOLES</th>
+                <th width="20%">JUEVES</th>
+                <th width="20%">VIERNES</th>
+              </tr>
+
+
+
+
+              <tr>
+                <td id="date2015-06-01"><span>01</span></td>
+                <td id="date2015-06-02"><span>02</span></td>
+                <td id="date2015-06-03"><span>03</span></td>
+                <td id="date2015-06-04"><span>04</span></td>
+                <td id="date2015-06-05"><span>05</span></td>
+              </tr>
+
+              <tr>
+                <td id="date2015-06-08"><span>08</span></td>
+                <td id="date2015-06-09"><span>09</span></td>
+                <td id="date2015-06-10"><span>10</span></td>
+                <td id="date2015-06-11"><span>11</span></td>
+                <td id="date2015-06-12"><span>12</span></td>
+              </tr>
+
+              <tr>
+                <td id="date2015-06-15"><span>15</span></td>
+                <td id="date2015-06-16"><span>16</span></td>
+                <td id="date2015-06-17"><span>17</span></td>
+                <td id="date2015-06-18"><span>18</span></td>
+                <td id="date2015-06-19"><span>19</span></td>
+              </tr>
+
+              <tr>
+                <td id="date2015-06-22"><span>22</span></td>
+                <td id="date2015-06-23"><span>23</span></td>
+                <td id="date2015-06-24"><span>24</span></td>
+                <td id="date2015-06-25"><span>25</span></td>
+                <td id="date2015-06-26"><span>26</span></td>
+              </tr>
+
+
+              <tr>
+                <td id="date2015-06-29"><span>29 </span></td>
+                <td id="date2015-06-30"><span>30</span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td ><span></span></td>
+              </tr>
+
+            </table>
+          </div>
+
+        </div><!--MES 01-->
+
+        <div class="col-md-6">
+          <h3>JUNIO 2015</h3>
+          <div class="table-responsive table-meses">
+            <table class="table table-bordered inner-top-vs">
+
+              <tr>
+                <th width="20%">LUNES</th>
+                <th width="20%">MARTES</th>
+                <th width="20%">MIÉRCOLES</th>
+                <th width="20%">JUEVES</th>
+                <th width="20%">VIERNES</th>
+              </tr>
+
+              <tr>
+                <td><span>01</span></td>
+                <td><span>02</span></td>
+                <td><span>03</span></td>
+                <td><span>04</span></td>
+                <td><span>05</span></td>
+              </tr>
+
+              <tr>
+                <td><span>08</span></td>
+                <td><span>09</span></td>
+                <td><span>10</span></td>
+                <td><span>11</span></td>
+                <td><span>12</span></td>
+              </tr>
+
+              <tr>
+                <td><span>15</span></td>
+                <td><span>16</span></td>
+                <td><span>17</span></td>
+                <td><span>18</span></td>
+                <td><span>19</span></td>
+              </tr>
+
+              <tr>
+                <td><span>22</span></td>
+                <td><span>23</span></td>
+                <td><span>24</span></td>
+                <td><span>25</span></td>
+                <td><span>26</span></td>
+              </tr>
+
+              <tr>
+                <td><span>29</span></td>
+                <td><span>30</span></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+
+            </table>
+          </div>
+
+        </div><!--MES 01-->
+
+      </div><!-- fin tablas-->
+
+      <div class="row salto01">
+
+        <div class="col-sm-4"><div class="box-dats">
+          <span><img src="assets/images/ic-menu.png"></span>
+          <h2>MI MENÚ</h2>
+          <a href="mi-cuenta-armar-menu-mes.html" class="btn-upper btn btn-primary">Entrar</a>
+        </div></div>
+
+        <div class="col-sm-4"><div class="box-dats">
+          <span><img src="assets/images/ic-editar.png"></span>
+          <h2>MIS DATOS</h2>
+          <a href="mi-cuenta-editar-datos.html" class="btn-upper btn btn-primary">Editar</a>
+        </div></div>
+
+
+        <div class="col-sm-4"><div class="box-dats">
+          <span><img src="assets/images/ic-plan.png"></span>
+          <h2>MI PLAN</h2>
+          <a href="mi-plan.html" class="btn-upper btn btn-primary">Renovar</a>
+        </div></div></a>
+      </div>
+
+
+
+</section><!-- /.section -->
+
+</div><!-- /.container -->
+  <script !src="">
+
+
+      $.getJSON( "http://localhost:3000/getmenus", function( data ) {
+          var items = [];
+          $.each( data, function( key, val ) {
+
+
+
+
+              if(val.date !=null){
+                  if(val.estado){
+                      $('#date'+val.fechacliente).append(' <a href=""><img src="assets/images/menu-si.png"></a>');
+                  }else{
+                      $('#date'+val.fechacliente).append(' <a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-no.png"></a>');
+
+                  }
+              }else{
+                  $('#date'+val.fechacliente).append('<img src="assets/images/menu-sin.png">');
+
+              }
+
+
+
+          });
+
+      });
+
+
+
+  </script>

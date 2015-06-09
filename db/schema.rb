@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609053234) do
+ActiveRecord::Schema.define(version: 20150609065348) do
 
   create_table "carbohydrates", force: true do |t|
     t.string   "name"
@@ -22,6 +22,19 @@ ActiveRecord::Schema.define(version: 20150609053234) do
   create_table "menucarbohydrates", force: true do |t|
     t.integer  "menu_id"
     t.integer  "carbohydrate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "menuclientes", force: true do |t|
+    t.date     "date"
+    t.integer  "protein_id"
+    t.integer  "wok_id"
+    t.integer  "salad_id"
+    t.integer  "soup_id"
+    t.integer  "carbohidrate_id"
+    t.boolean  "estado"
+    t.integer  "usuario_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

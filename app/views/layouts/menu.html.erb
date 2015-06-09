@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ARMA TU MENÚ - LA MANZANA NARANJA</title>
+
+  <%= stylesheet_link_tag    'menu/reset',
+                             'menu/style'
+  %>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Karla:400,700italic,700,400italic' rel='stylesheet' type='text/css'>
+  <%= yield :head %>
+
+  <%= csrf_meta_tags %>
+</head>
+<body >
+
+
+      <%= yield %>
+
+
+
+
+
+
+
+  <%=  javascript_include_tag  'menu/main.js' %>
+
+</body>
+</html>

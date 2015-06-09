@@ -4,7 +4,19 @@ Rails.application.routes.draw do
 
 
   root 'pages#index'
-  get 'micuenta.html' => 'pages#micuenta'
+  get 'mi-cuenta.html' => 'pages#micuenta', as: 'micuenta'
+  get 'mi-cuenta-armar-menu-mes.html' => 'pages#armarmenu', as: 'armememu'
+  get 'mi-cuenta-menu-del-dia.html' => 'pages#armarmenudia', as: 'menudia'
+
+
+  post 'agregarmenudia' => 'pages#agregarmenudia', as: 'agregarmenudia'
+
+
+
+
+  get 'getmenus' => 'pages#getMenus', as: 'getmenus'
+
+
 
   namespace :admin do
     get 'dashboard/index'

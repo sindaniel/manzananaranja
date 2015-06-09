@@ -1,0 +1,290 @@
+<main>
+
+  <section class="cd-section cd-placeholder-2">
+
+    <div class="box-x50"><img src="assets/images/logo.png" alt="">
+
+      <% @date = params[:fecha].to_date
+         dias =['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
+         meses = ['', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agostro', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+
+      %>
+
+      <h2>Menú del:  <%= dias[@date.strftime("%w").to_f] %> <%= @date.strftime("%d") %> de <%= meses[@date.strftime("%m").to_f] %> de <%= @date.strftime("%Y") %></h2>
+      <p>Debe seleccionar una de las opciones y luego el ingrediente que desee para su menú. <br>Debera ir completando la barra hasta el 100% para poder guardar su menú.</p>
+    </div>
+
+    <div class="box-x50">
+      <div class="btn-bien"><a id="porce" href=""><span>0</span>% | GUARDAR ></a></div>
+      <div class="btn-cancel"><a href="mi-cuenta-armar-menu-mes.html">CANCELAR</a></div>
+    </div>
+
+
+    <div class="box-x100">
+      <div class="barra-ic01 box-none"><img src="assets/images/cesta-vacio.png" alt=""></div>
+      <div class="barra-completa">
+        <div id="sopa" class="barra-x20 ">SOPA <br><span class="box-none"></span></div>
+        <div id="wok" class="barra-x20 ">WOK <br><span class="box-none"></span></div>
+        <div id="proteinas" class="barra-x20 ">PROTEINAS <br><span class="box-none"></span></div>
+        <div id="carbo" class="barra-x20">CARBOHIDRATOS<br><span class="box-none"></span></div>
+        <div id="ensalada" class="barra-x20">ENSALADA<br><span class="box-none"></span></div>
+      </div>
+      <div class="barra-ic02 box-none"><img src="assets/images/cesta-lleno.png" alt=""></div>
+    </div>
+
+  </section>
+
+  <section id="cd-team" class="cd-section">
+    <!--<div class="cd-container">-->
+    <ul>
+
+      <li><a href="#0" data-type="sopa">
+        <figure><img src="assets/images/sopa.jpg" alt="Team member 1"><div class="cd-img-overlay"><span>Selecciona (1)</span></div></figure>
+        <div class="cd-member-info">SOPA</div></a>
+      </li>
+
+      <li><a href="#0" data-type="wok">
+        <figure><img src="assets/images/wok.jpg" alt="Team member 1"><div class="cd-img-overlay"><span>Selecciona (1)</span></div></figure>
+        <div class="cd-member-info">WOK</div></a>
+      </li>
+
+      <li><a href="#0" data-type="proteinas">
+        <figure><img src="assets/images/proteinas.jpg" alt="Team member 1"><div class="cd-img-overlay"><span>Selecciona (1)</span></div></figure>
+        <div class="cd-member-info">PROTEINAS</div></a>
+      </li>
+
+      <li><a href="#0" data-type="carbohidratos">
+        <figure><img src="assets/images/carbohidratos.jpg" alt="Team member 1"><div class="cd-img-overlay"><span>Selecciona (1)</span></div></figure>
+        <div class="cd-member-info">CARBOHIDRATOS</div></a>
+      </li>
+
+      <li><a href="#0" data-type="ensalada">
+        <figure><img src="assets/images/ensalada.jpg" alt="Team member 1"><div class="cd-img-overlay"><span>Selecciona (1)</span></div></figure>
+        <div class="cd-member-info">ENSALADA</div></a>
+      </li>
+
+    </ul>
+  </section> <!-- cd-team -->
+
+  <div class="cd-overlay"></div>
+</main>
+
+<div class="cd-member-bio iten-ingre sopa">
+  <h1>Selecciona tu: Sopa</h1>
+
+
+
+    <% cuenta = 1 %>
+    <% @ingredientes.soups.each do |soup| %>
+         <a href="" data-idsopa="<%=  soup.id %>"><span><%= cuenta %></span> <strong><%=  soup.name %></strong> </a>
+      <% cuenta = cuenta+1 %>
+    <% end %>
+    <a href="" data-idsopa="0">Hoy no quiero</a>
+</div> <!-- iten box -->
+
+<div class="cd-member-bio iten-ingre wok">
+  <h1>Selecciona tu: Wok</h1>
+  <% cuenta = 1 %>
+  <% @ingredientes.woks.each do |wok| %>
+      <a href="" data-idwok="<%=  wok.id %>"><span><%= cuenta %></span> <strong> <%=  wok.name %></strong></a>
+      <% cuenta = cuenta+1 %>
+  <% end %>
+  <a href="" data-idsopa="0">Hoy no quiero</a>
+</div> <!-- iten box -->
+
+<div class="cd-member-bio iten-ingre proteinas">
+  <h1>Selecciona tu: Proteina</h1>
+  <% cuenta = 1 %>
+  <% @ingredientes.proteins.each do |protein| %>
+      <a href="" data-idproteina="<%=  protein.id %>"><span><%= cuenta %></span> <strong> <%=  protein.name %></strong></a>
+      <% cuenta = cuenta+1 %>
+  <% end %>
+  <a href="" data-idproteina="0">Hoy no quiero</a>
+</div> <!-- iten box -->
+
+<div class="cd-member-bio iten-ingre carbohidratos">
+  <h1>Selecciona tu: Carbohidrato</h1>
+  <% cuenta = 1 %>
+  <% @ingredientes.carbohydrates.each do |carbohydrate| %>
+      <a href="" data-idcarbo="<%=  carbohydrate.id %>"><span><%= cuenta %></span> <strong> <%=  carbohydrate.name %></strong></a>
+      <% cuenta = cuenta+1 %>
+  <% end %>
+  <a href="" data-idcarbo="0">Hoy no quiero</a>
+</div> <!-- iten box -->
+
+<div class="cd-member-bio iten-ingre ensalada">
+  <h1>Selecciona tu: Ensalada</h1>
+  <% cuenta = 1 %>
+  <% @ingredientes.salads.each do |salad| %>
+      <a href="" data-idensalada="<%=  salad.id %>"><span><%= cuenta %></span> <strong> <%=  salad.name %></strong></a>
+      <% cuenta = cuenta+1 %>
+  <% end %>
+  <a href="" data-idensalada="0">Hoy no quiero</a>
+</div> <!-- iten box -->
+
+<a href="#0" class="cd-member-bio-close">CERRAR</a> <!-- close the author bio section -->
+
+
+<script !src="">
+
+  $(function(){
+      var porcentaje = 0;
+
+      psopa = 0;
+      pwok = 0;pcarbo = 0;
+      pensalada = 0;
+      pproteina = 0;
+      total = 0;
+
+      $('.sopa a').click(function(){
+          idsopa = $(this).data('idsopa');
+          texto = $(this).find('strong').html();
+
+          psopa = 20;
+          updateP();
+
+          $('#sopa .box-none').html(texto)
+          $('#sopa').addClass('b-color')
+          $('.cd-overlay').trigger('click');
+
+          return false
+      });
+
+
+
+      $('.wok a').click(function(){
+          idwok = $(this).data('idwok');
+          texto = $(this).find('strong').html();
+
+          pwok = 20;
+          updateP();
+
+          $('#wok .box-none').html(texto)
+          $('#wok').addClass('b-color')
+          $('.cd-overlay').trigger('click');
+
+          return false
+      });
+
+
+
+      $('.proteinas a').click(function(){
+          idproteina = $(this).data('idproteina');
+          texto = $(this).find('strong').html();
+
+          pproteina = 20;
+          updateP();
+
+          $('#proteinas .box-none').html(texto)
+          $('#proteinas').addClass('b-color')
+          $('.cd-overlay').trigger('click');
+
+          return false
+      });
+
+
+
+
+      $('.carbohidratos a').click(function(){
+          idcarbo = $(this).data('idcarbo');
+          texto = $(this).find('strong').html();
+
+          pcarbo = 20;
+          updateP();
+
+          $('#carbo .box-none').html(texto)
+          $('#carbo').addClass('b-color')
+          $('.cd-overlay').trigger('click');
+
+          return false
+      });
+
+
+
+
+      $('.ensalada a').click(function(){
+          idensalada = $(this).data('idensalada');
+          texto = $(this).find('strong').html();
+
+          pensalada = 20;
+          updateP();
+
+          $('#ensalada .box-none').html(texto)
+          $('#ensalada').addClass('b-color')
+          $('.cd-overlay').trigger('click');
+
+          return false
+      });
+
+
+
+
+      function updateP(){
+        total =   psopa + pwok + pcarbo + pensalada + pproteina
+          $('#porce span').html(total)
+      }
+
+
+
+      $('#porce').click(function(){
+          if(total == 100){
+
+
+              function showData(data){
+                  $('.respuesta2').html(data);
+              };
+
+              function loader(data){
+                  //  $('#formc').fadeOut();
+              };
+
+              function error(data){
+                  alert("Error enviados los datos");
+              };
+
+              function showErrors(errors){
+
+              }
+
+              function complete(a){
+
+              }
+
+
+
+
+
+
+              $.ajax({
+                  async: true,
+                  type: "POST",
+                  data: {
+                      proteina:idproteina,
+                      sopa:idsopa,
+                      carbo:idcarbo,
+                      wok:idwok,
+                      ensalada:idensalada,
+                      fecha: '<%= params[:fecha] %>'
+                  },
+                  beforeSend:loader,
+                  error:error,
+                  success: function (msg) {
+                      console.log(msg)
+
+
+                  },
+                  url:'<%= agregarmenudia_path %>'
+              });
+
+
+          }else{
+                alert('Debes de completar tu pedido')
+          }
+          return false;
+      })
+
+
+
+
+  })
+</script>
