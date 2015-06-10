@@ -1,0 +1,123 @@
+
+
+<div class="container">
+  <div class="row single-product" ng-show="formulario">
+
+    <h3 class="tit-inter"><span>Informe Nutricional</span></h3>
+
+
+
+    <div class="row salto01">
+
+      <div class="col-sm-6 box-informe">
+	<span><h2 class="page-title text-center">Responde estas preguntas en solo 1 minuto!</h2>
+	<h3>Con esta herramienta obtendrás información sobre cuál es tu rango de peso ideal, cuál es tu Índice de Masa Corporal (IMC) y  cuánto peso deberías perder/ganar.</h3>
+	</span>
+      </div>
+
+      <div class="col-sm-5 pull-right box-gris22">
+        <sapn><h2 class="page-title text-center">¡Tu informe nutricional gratis!</h2></sapn>
+
+        <div class="table-responsive">
+          <table class="table-ahorro salto-top">
+            <tbody>
+            <tr><td>TU PESO: <input required id="peso" ng-model="user.peso" class="form-control unicase-form-control text-input" type="" placeholder="Kgr."></td></tr>
+
+
+
+
+            <tr><td>TU ALTURA: <input id="altura" ng-model="user.altura" class="form-control unicase-form-control text-input" type="" placeholder="Mts."></td></tr>
+            <tr><td><p>TU SEXO:</p>
+              <div class="attribute_list">
+                <select id="sexo" class="form-control selectpicker attribute_select no-print" id="group_1" name="group_1" ng-model="user.sexo">
+
+                  <option value="1" selected>FEMENINO</option>
+                  <option  value="2">MASCULINO</option>
+                </select>
+              </div> <!-- /.attribute_list -->
+            </td></tr>
+
+            <tr><td>TU EDAD: <input id="edad" class="form-control unicase-form-control text-input" type="" placeholder="años" ng-model="user.edad"></td></tr>
+            <tr><td><button class="btn btn-primary bn-dos"  ng-click="getData(user)">¡OBTENER MI INFORME!</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+
+  </div>
+
+
+
+</div><!-- /.container -->
+</div>
+
+
+
+<div class="container"  ng-show="resultado" style="display:none;">
+  <div class="row single-product" >
+    <h3 class="tit-inter"><span>Informe Nutricional</span></h3>
+    <div class="row salto01">
+      <div class="col-sm-5">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3>Tus Datos Son:</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5 box-dats">
+            <span><img  ng-src="{{sexoI}}"></span>
+            <p>SEXO</p>
+            <h1>{{sexoR}}</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5 box-dats">
+            <span><img src="assets/images/ic-peso.png"></span>
+            <p>PESO ACTUAL</p>
+            <h1>{{pesoR}}<small>Kgr.</small></h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5 box-dats">
+            <span><img src="assets/images/ic-altura.png"></span>
+            <p>ESTATURA</p>
+            <h1>{{alturaR}}<small>Mts.</small></h1>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 pull-right">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3>Resumen de Perfil:</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 box-dats" style="margin:0 0 20px -15px;width:auto;">
+            <p>TU IMC <br>(Indice de Masa Corporal) ES</p>
+            <h1>{{masa}}<br></h1>
+          </div>
+          <div class="col-sm-7 pull-right box-verde for-tex">
+            <span><img  ng-src="{{imageI}}"></span>
+
+            <h1 class="page-title" ng-bind-html="mensaje"></h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 pull-right box-dats" style="margin:0 15px 0 0;">
+            <h2 class="page-title text-center">Te recomendamos:</h2>
+            <div class="col-sm-12">
+              <h4>{{descripcion}}</h4>
+              <a class="btn btn-primary pad-extra" href="#">ADQUIRIR UN PLAN</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

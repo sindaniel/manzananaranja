@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150609065348) do
     t.integer  "wok_id"
     t.integer  "salad_id"
     t.integer  "soup_id"
-    t.integer  "carbohidrate_id"
+    t.integer  "carbohydrate_id"
     t.boolean  "estado"
     t.integer  "usuario_id"
     t.datetime "created_at"

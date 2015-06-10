@@ -12,6 +12,33 @@ Rails.application.routes.draw do
   get 'mi-cuenta-armar-menu-mes.html' => 'pages#armarmenu', as: 'armememu'
   get 'mi-cuenta-menu-del-dia.html' => 'pages#armarmenudia', as: 'menudia'
 
+  get 'que-hacemos.html' => 'pages#quehacemos', as: 'quehacemos'
+  get 'planes.html' => 'pages#planes', as: 'planes'
+  get 'estilo-de-vida.html' => 'pages#estilodevida', as: 'estilodevida'
+
+
+
+
+
+  get 'como-funciona.html' => 'pages#comofunciona', as: 'comofunciona'
+  get 'promesa-de-servicio.html' => 'pages#promesadeservicio', as: 'promesadeservicio'
+  get 'preguntas-frecuentes.html' => 'pages#preguntasfrecuentes', as: 'preguntasfrecuentes'
+  get 'informe-nutricional.html' => 'pages#informenutricional', as: 'informenutricional'
+
+  get 'simulador-ahorro.html' => 'pages#simulador', as: 'simulador'
+
+  get 'contacto.html' => 'pages#contacto', as: 'contacto'
+
+
+  get 'mi-cuenta-editar-datos.html' => 'pages#micuentaeditar', as: 'micuentaeditar'
+
+
+  get 'mi-plan.html' => 'pages#miplan', as: 'miplan'
+
+
+
+
+
 
   post 'agregarmenudia' => 'pages#agregarmenudia', as: 'agregarmenudia'
 
