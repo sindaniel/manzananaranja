@@ -220,7 +220,7 @@
 
       var ready;
       ready = function() {
- 
+
           $.getJSON( "http://45.55.133.179:3000/getmenus", function( data ) {
               var items = [];
               $.each( data, function( key, val ) {
@@ -230,7 +230,7 @@
 
                   if(val.date !=null){
                       if(val.estado){
-                          $('#date'+val.fechacliente).append(' <a href=""><img src="assets/images/menu-si.png"></a>');
+                          $('#date'+val.fechacliente).append(' <a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-si.png"></a>');
                       }else{
                           $('#date'+val.fechacliente).append(' <a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-no.png"></a>');
 
