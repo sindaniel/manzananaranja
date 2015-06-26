@@ -20,7 +20,10 @@
           <div class="pull-right">
             <span style="float:left;margin:0  20px 0 0;"> <%= image_tag 'tel-top.png' %></span>
             <a href="planes.html" style="float:left;margin:0 0 10px 0"><%= image_tag 'pedidos.png' %></a>
-            <a href="mi-cuenta.html" style="float:left;" method="get"><%= image_tag 'micuenta.png' %></a>
+
+            <%= link_to micuenta_path, :method => 'get' do  %>
+                <%= image_tag 'micuenta.png' %>
+            <% end %>
           </div>
 
           <!-- ============================================================= SHOPPING CART DROPDOWN : END============================================================= -->
