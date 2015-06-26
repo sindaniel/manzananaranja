@@ -178,7 +178,7 @@ header p {
 }
 
 #cd-team {
-  background-image: url("../assets/images/bg-menu.jpg");
+  background-image: url("../images/bg-menu.jpg");
   background-position: top center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -282,7 +282,7 @@ header p {
   overflow-y: auto;
   /* smooth scrolling on mobile phones and tablets */
   -webkit-overflow-scrolling: touch;
-  background:#74bd42 url("../assets/images/rep-footer.png") repeat scroll 0 0;
+  background:#74bd42 url("../images/rep-footer.png") repeat scroll 0 0;
   z-index: 1;
   /* this how we move the author bio section off the canvas */
   -webkit-transform: translateX(270px);
@@ -523,7 +523,7 @@ xkeyframes
 .iten-ingre a:hover{
   background-color: #F36A20;
   color: #FFF;
-  background-image: url("../assets/images/chek.png");
+  background-image: url("../images/chek.png");
   background-repeat: no-repeat;
   background-position: right center;
 }

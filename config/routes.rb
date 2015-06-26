@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+
   devise_for :users
 
 
@@ -74,7 +75,8 @@ Rails.application.routes.draw do
               :services,
               :planclientes,
               :texts,
-              :customers
+              :customers,
+        :pictures
 
   end
 

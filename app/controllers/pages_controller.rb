@@ -91,7 +91,7 @@ class PagesController < ApplicationController
     if session[:login].nil?
       redirect_to home_path
     else
-
+      @pictures = Picture.all
       @ingredientes = Menu.find_by_date(params[:fecha])
 
       #valido dia

@@ -1,0 +1,71 @@
+
+<%  if @picture.errors.any? %>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <%= pluralize(@picture.errors.count, "Errores") %> tratando de guardar:
+      </div>
+      <p>
+      <ul>
+        <% @picture.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+      </p>
+    </div>
+<% end %>
+<!-- /.row -->
+
+
+<div class="row">
+  <div class="col-md-12">
+
+
+
+    <%= form_for @picture, :url => admin_picture_path, :method=>'PATCH' do |f|  %>
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+            <h1><%= @picture.name %></h1>
+              <%= f.file_field :picture, :class =>'form-control'  %>
+
+              <% if @picture.picture.to_s  != '/images/missing.png' %>
+                  <%= image_tag @picture.picture(:home ), :class=>'img-thumbnail img-responsive' %>
+
+
+              <% end %>
+            </div>
+          </div>
+
+          </div>
+
+
+
+
+        <%= f.submit 'Guardar', :class=> 'btn btn-info' %>
+        <%=  link_to 'Cancelar', admin_pictures_path, :class=>'btn btn-warning' %>
+    <% end %>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
