@@ -1,0 +1,12 @@
+<%- headers = ['Fecha','Proteina','Wok','Sopa','Carbohidrato','Ensalada','Usuario','Direccion','Fecha de creacion'] -%><%= CSV.generate_line headers %>
+<%- @menusNombreCliente.each do |menu| -%><%= CSV.generate_line([menu.date, menu.protein.name, menu.wok.name, menu.soup.name, menu.carbohydrate.name, menu.salad.name, menu.firstname+' '+menu.lastname, menu.address, menu.updated_at ]) %><%- end -%>
+
+<%= CSV.generate_line(['Totales']) %>
+<%= CSV.generate_line(['PROTEINAS']) %><%- @proteinas.each do |item| -%><%= CSV.generate_line([item.name, item.total]) %><%- end -%> <%= CSV.generate_line(['Total', @proteinas.count]) %>
+<%= CSV.generate_line(['WOKS']) %><%- @woks.each do |item| -%><%= CSV.generate_line([item.name, item.total]) %><%- end -%> <%= CSV.generate_line(['Total', @woks.count]) %>
+<%= CSV.generate_line(['SOPAS']) %><%- @sopas.each do |item| -%><%= CSV.generate_line([item.name, item.total]) %><%- end -%> <%= CSV.generate_line(['Total', @sopas.count]) %>
+<%= CSV.generate_line(['ENSALADAS']) %><%- @ensaladas.each do |item| -%><%= CSV.generate_line([item.name, item.total]) %><%- end -%> <%= CSV.generate_line(['Total', @ensaladas.count]) %>
+<%= CSV.generate_line(['CARBOHIDRATOS']) %><%- @carbohidratos.each do |item| -%><%= CSV.generate_line([item.name, item.total]) %><%- end -%> <%= CSV.generate_line(['Total', @carbohidratos.count]) %>
+
+
+

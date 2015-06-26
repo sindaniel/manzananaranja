@@ -1,3 +1,11 @@
+<% if @message %>
+    <script>
+      alert('Usuario o clave invalida')
+    </script>
+<% end %>
+
+
+
 
 <div class="body-content" id="top-banner-and-menu">
 
@@ -11,18 +19,22 @@
         <div class="col-md-6 col-sm-6 sign-in">
           <h4 class="">Ingrese a su cuenta</h4>
           <p class="">Hola, aquí podras entrar para armar tu menú de la semana</p>
-          <form class="register-form" role="form">
+          <form class="register-form" role="form" method="post">
+
+            <input type="text" name="authenticity_token" value="<%= form_authenticity_token %>"/>
+
             <div class="form-group">
               <label class="info-title" for="exampleInputEmail1">Email <span>*</span></label>
-              <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" >
+              <input type="email" class="form-control unicase-form-control text-input" name="email" >
             </div>
             <div class="form-group">
               <label class="info-title" for="exampleInputPassword1">Contraseña <span>*</span></label>
-              <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" >
+              <input type="password" class="form-control unicase-form-control text-input" name="clave" >
             </div>
             <div class="radio outer-xs">
 
-              <%= link_to 'ENTRAR', armememu_path, :method=>'get', :class=>'btn-upper btn btn-primary checkout-page-button'  %>
+              <% # link_to 'ENTRAR', armememu_path, :method=>'get', :class=>'btn-upper btn btn-primary checkout-page-button'  %>
+              <button class="btn-upper btn btn-primary checkout-page-button">Entrar</button>
               <a href="#" class="forgot-password pull-right">¿Olvidaste tu contraseña?</a>
             </div>
 

@@ -5,7 +5,6 @@
     <section class="section featured-product wow fadeInUp">
 
 
-
       <h3 class="tit-inter"><span>Mi Cuenta</span></h3>
 
       <div class="row box-quehacemos" style="margin-bottom:30px;">
@@ -17,9 +16,9 @@
         <div class="col-sm-4">
           <div class="box-dats">
             <p>Usted adquirio el plan:</p>
-            <h1>Estilo de Vida</h1>
-            <h3>20 Platos</h3>
-            <h4 class="tex-justo">Sus platos se organizon desde el<br> <b>25 mayo 2015</b> hasta el <b>23 Junio 2015</b></h4>
+            <h1><%= @plancliente.service.name %></h1>
+            <h3><%= @plancliente.service.dishes %> Platos</h3>
+            <h4 class="tex-justo">Sus platos se organizon desde el<br> <b><%= @menuscliente.first.date %></b> hasta el <b><%= @menuscliente.last.date %></b></h4>
 
           </div></div>
 
@@ -29,7 +28,7 @@
 
       </div>
 
-      <% if params[:e] %>
+      <% if params[:e] == '1' %>
 
 
           <div class="alert alert-success fade in">
@@ -130,7 +129,7 @@
         </div><!--MES 01-->
 
         <div class="col-md-6">
-          <h3>JUNIO 2015</h3>
+          <h3>JULIO 2015</h3>
           <div class="table-responsive table-meses">
             <table class="table table-bordered inner-top-vs">
 
@@ -143,43 +142,47 @@
               </tr>
 
               <tr>
-                <td><span>01</span></td>
-                <td><span>02</span></td>
-                <td><span>03</span></td>
-                <td><span>04</span></td>
-                <td><span>05</span></td>
+                <td><span></span></td>
+                <td><span></span></td>
+                <td id="date2015-07-01"><span>01</span></td>
+                <td id="date2015-07-02"><span>02</span></td>
+                <td id="date2015-07-03"><span>03</span></td>
               </tr>
 
               <tr>
-                <td><span>08</span></td>
-                <td><span>09</span></td>
-                <td><span>10</span></td>
-                <td><span>11</span></td>
-                <td><span>12</span></td>
+                <td id="date2015-07-06"><span>06</span></td>
+                <td id="date2015-07-07"><span>07</span></td>
+                <td id="date2015-07-08"><span>08</span></td>
+                <td id="date2015-07-09"><span>09</span></td>
+                <td id="date2015-07-10"><span>10</span></td>
               </tr>
 
               <tr>
-                <td><span>15</span></td>
-                <td><span>16</span></td>
-                <td><span>17</span></td>
-                <td><span>18</span></td>
-                <td><span>19</span></td>
+                <td id="date2015-07-13"><span>13</span></td>
+                <td id="date2015-07-14"><span>14</span></td>
+                <td id="date2015-07-15"><span>15</span></td>
+                <td id="date2015-07-16"><span>16</span></td>
+                <td id="date2015-07-17"><span>17</span></td>
               </tr>
 
               <tr>
-                <td><span>22</span></td>
-                <td><span>23</span></td>
-                <td><span>24</span></td>
-                <td><span>25</span></td>
-                <td><span>26</span></td>
+                <td id="date2015-07-20"><span>20</span></td>
+                <td id="date2015-07-21"><span>21</span></td>
+                <td id="date2015-07-22"><span>22</span></td>
+                <td id="date2015-07-23"><span>23</span></td>
+                <td id="date2015-07-24"><span>24</span></td>
               </tr>
 
               <tr>
-                <td><span>29</span></td>
-                <td><span>30</span></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td id="date2015-07-27"><span>27</span></td>
+                <td id="date2015-07-28"><span>28</span></td>
+                <td id="date2015-07-29"><span>29</span></td>
+                <td id="date2015-07-30"><span>30</span></td>
+                <td id="date2015-07-31"><span>31</span></td>
+
+
+
+
               </tr>
 
             </table>
@@ -220,8 +223,8 @@
 
       var ready;
       ready = function() {
-
-          $.getJSON( "http://45.55.133.179:3000/getmenus", function( data ) {
+//
+          $.getJSON( "<%= getmenus_path %>?user=<%= session[:login] %>", function( data ) {
               var items = [];
               $.each( data, function( key, val ) {
 
@@ -229,6 +232,7 @@
 
 
                   if(val.date !=null){
+
                       if(val.estado){
                           $('#date'+val.fechacliente).append(' <a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-si.png"></a>');
                       }else{
@@ -245,6 +249,53 @@
               });
 
           });
+
+
+
+
+
+
+          $.getJSON( "<%= getdaydisponible_path %>?from=<%= @menuscliente.first.date %>&to=<%= @menuscliente.last.date %>", function( data ) {
+              var items = [];
+              $.each( data, function( key, val ) {
+
+
+
+
+
+
+                  if(!val.estado){
+
+                      //$('#date'+val.date+" img").hide()
+                      //$('#date'+val.date).append('<img src="assets/images/menu-sin.png">');
+                  }
+
+
+              });
+
+          });
+
+
+
+
+
+
+          $.getJSON( '<%= getfestivos_path %>', function( data ) {
+              var items = [];
+
+              $.each( data, function( key, val ) {
+
+                console.log('.'+val.date+" span")
+                  $('#date'+val.date+" span").append(' <br><small>(festivo)</small>')
+
+
+
+              });
+
+          });
+
+
+
 
 
 

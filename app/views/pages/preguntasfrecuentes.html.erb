@@ -7,53 +7,29 @@
 
       <div class="col-md-5">
 
-        <h4>¿Qué planes se pueden elegir?</h4>
-        <p>Puedes elegir entre plan de despertar, conciencia, equilibrio, estilo de vida y tiquetera.  Para mayor información te sugerimos ver nuestros <a href="planes.html">planes</a>.</p>
+            <% 7.times do |i| %>
 
-        <h4>¿Cómo puedo comprar un plan?</h4>
-        <p>Puedes comprar tu plan de dos formas diferentes: Online (a través de esta página web) o por medio de nuestro call center llamando al xxx.</p>
-
-        <h4>¿Cuanto cuestan los planes?</h4>
-        <p>Puedes ver los precios dentro de cada plan (en la pestaña planes), pero te adelantamos que puedes tener las comidas de una semana desde sólo $80.550 que por día serian $16.110 esto incluye el almuerzo y la bebida que esta incluida dentro del plan.  (¿costo domicilio?)</p>
-
-        <h4>¿Qué puedo hacer si un plato de mi plan no me gusta?</h4>
-        <p>Puedes realizar  cambios en tu plan, simplemente haz clic sobre el plato que no te guste y elige un plato de sustitución. Los platos de sustitución siempre deben ser de la misma categoría que el plato que estás cambiando, así nos aseguramos de que tu menú siga siendo equilibrado, pero a la vez que sea de tu gusto.</p>
-
-        <h4>¿Dónde recibo mis comidas?</h4>
-        <p>Recibirás tu domicilio en el lugar que nos hayas indicado en el momento de registrarte como usuario;  si deseas hacer un cambio de dirección del domicilio debes informar 24 horas antes y verificar si cubrimos la ruta.</p>
-
-        <h4>¿Los planes incluyen consulta nutricional?</h4>
-        <p>Si haces tu compra en nuestros planes Equilibro o Estilo de Vida puedes programar tu cita con nuestra nutricionista una vez al mes, recuerda que el costo es de $15.000 por consulta.</p>
-
-        <h4>¿Cómo puedo pagar mis pedidos?</h4>
-        <p>Si compras online puedes pagar con tarjeta debito, tarjeta de crédito, si lo haces telefónicamente podemos enviarte un datafono o pagar vía transferencia bancaria.</p>
-
-        <h4>¿Cuáles son los horarios de entrega a domicilio?</h4>
-        <p>Las entregas a domicilio se realizan de lunes a viernes según nuestra malla de horario  y zonas atendidas.  Para mayor información ingresa a nuestra pestana <a href="promesa-de-servicio.html">promesa de servicio</a>.</p>
+            <h4><%= @textsGenerals[i].title %></h4>
+            <p>
+              <%= raw @textsGenerals[i].description %>
+            </p>
+            <% end %>
 
       </div>
 
       <div class="col-md-5 pull-right">
 
 
+        <% 7.times do |i| %>
+            <% j = i+7 %>
+            <h4><%= @textsGenerals[j].title %></h4>
+            <p>
+              <%= raw @textsGenerals[j].description %>
+            </p>
+        <% end %>
 
-        <h4>Como puedo ahorrar con la Manzana Naranja?</h4>
-        <p>Puedes ahorrar en tus compras haciendo pedidos para varias semanas (cuanto mayor sea la duración de tu plan más dinero ahorras).</p>
 
-        <h4>¿Qué pasa cuando realizo una compra online?</h4>
-        <p>Cuando hagas una compra online te enviaremos un correo electrónico con todos los detalles de tu compra. También puedes ver la información de tus pedidos desde "Mi cuenta" si tu pedido todavía no ha sido pagado porque has elegido transferencia bancaria como método de pago, te daremos los pasos a seguir para poder procesar tu compra. Si ya has pagado tu pedido, mediante tarjeta de crédito o PSE, sólo debes esperar a recibir tu comida. Si no encuentras nuestros e-mails en la bandeja de entrada de tu correo electrónico verifica la carpeta "Correo no deseado" o "Correo Spam".</p>
 
-        <h4>¿Cómo solicito las facturas de mis compras?</h4>
-        <p>Desde la sección Mi cuenta puedes descargar las facturas de todas tus compras online realizadas en La Manzana Naranja.</p>
-
-        <h4>¿No soy capaz de visualizar la página web correctamente?</h4>
-        <p>Lo primero que te recomendamos es actualizar a la versión más reciente de tu navegador habitual. Recomendamos utilizar Google Chrome. Si no consigues resolver los problemas para visualizar la página web puedes contactar con nosotros. También estamos trabajando actualmente en la versión móvil de nuestra plataforma para que te resulte más cómodo navegar a través de dispositivos móviles.</p>
-
-        <h4>¿Un mismo plato puede variar de una producción a otra?</h4>
-        <p>En una buena mesa un mismo plato siempre sabe diferente.  Los platos de la Manzana Naranja son cocinados de forma artesanal, por lo tanto  dos producciones de un mismo plato pueden no ser exactamente iguales.</p>
-
-        <h4>¿Aún tengo dudas,....?</h4>
-        <p>Ponemos a tu disposición un chat de atención al cliente en la zona inferior derecha de la pantalla en horario comercial (De lunes a viernes, de  8 am a 17:00 pm.  Además puedes llamarnos al xxxx en el mismo horario, o contactar con nosotros desde la sección contáctenos a cualquier hora los 365 días del año.</p>
       </div>
     </div>
 

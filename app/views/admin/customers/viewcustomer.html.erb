@@ -1,0 +1,168 @@
+<div class="row">
+
+  <div class="col-lg-12">
+    <section class="panel">
+      <header class="panel-heading">
+        Cliente
+      </header>
+
+
+      <div class="panel-body">
+
+
+        <!-- /.row -->
+        <% if flash[:notice] %>
+
+            <div class="alert alert-success fade in">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="fa fa-times"></i>
+              </button>
+              <%= flash[:notice] %>
+            </div>
+
+
+        <% end %>
+
+
+        <div class="adv-table">
+
+
+          <div id="example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+            <div class="row-fluid">
+
+              <div class="span6">
+
+
+
+              </div></div>
+
+
+
+
+
+                <table  class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+                  <thead>
+                     <tr>
+                       <th rowspan="1" colspan="1">Nombre</th>
+                       <th rowspan="1" colspan="1">Email</th>
+                       <th rowspan="1" colspan="1">Telefono</th>
+                       <th rowspan="1" colspan="1">Direccion</th>
+                       <th rowspan="1" colspan="1">Fecha de ingreso</th>
+                     </tr>
+                  </thead>
+                  <tbody role="alert" aria-live="polite" aria-relevant="all">
+                      <tr>
+                        <td><%=  @customer.firstname %> <%=  @customer.lastname %></td>
+                        <td><%=  @customer.email %></td>
+                        <td><%=  @customer.phone %></td>
+                        <td><%=  @customer.address %></td>
+                        <td><%=  @customer.created_at %></td>
+                      </tr>
+                  </tbody>
+                </table>
+
+
+
+            <table  class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+              <thead>
+              <tr>
+                <th rowspan="1" colspan="1">Plan</th>
+                <th rowspan="1" colspan="1">Platos</th>
+                <th rowspan="1" colspan="1">Fecha Inicio</th>
+                <th rowspan="1" colspan="1">Fecha Final</th>
+
+                <th rowspan="1" colspan="1">Fecha de compra</th>
+
+
+              </tr>
+              </thead>
+              <tbody role="alert" aria-live="polite" aria-relevant="all">
+              <tr>
+                <td><%=  @customer.service[0].name %></td>
+                <td><%=  @customer.service[0].dishes %></td>
+                <td><%=  @menusGeneral.first.date %></td>
+                <td><%=  @menusGeneral.last.date %></td>
+                <td><%=  @customer.plancliente[0].created_at %></td>
+              </tr>
+              </tbody>
+            </table>
+
+
+
+            <h2>Platos Armados</h2>
+            <table  class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+              <thead>
+              <tr>
+                <th rowspan="1" colspan="1">Fecha</th>
+                <th rowspan="1" colspan="1">Sopa</th>
+                <th rowspan="1" colspan="1">Wok</th>
+                <th rowspan="1" colspan="1">Ensalada</th>
+                <th rowspan="1" colspan="1">Carbohidrato</th>
+                <th rowspan="1" colspan="1">Proteina</th>
+
+
+
+              </tr>
+              </thead>
+              <tbody role="alert" aria-live="polite" aria-relevant="all">
+              <%  @menusHechos.each do |menu| %>
+              <tr>
+                    <td><%= menu.date %></td>
+                    <td><%= menu.soup.name %></td>
+                <td><%= menu.wok.name %></td>
+                <td><%= menu.salad.name %></td>
+                <td><%= menu.carbohydrate.name %></td>
+                <td><%= menu.protein.name %></td>
+
+              </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+
+
+
+
+
+
+            <h2>Platos por Armar</h2>
+            <table  class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+              <thead>
+              <tr>
+                <th rowspan="1" colspan="1">Fecha</th>
+                <th rowspan="1" colspan="1">Sopa</th>
+                <th rowspan="1" colspan="1">Wok</th>
+                <th rowspan="1" colspan="1">Ensalada</th>
+                <th rowspan="1" colspan="1">Carbohidrato</th>
+                <th rowspan="1" colspan="1">Proteina</th>
+
+
+
+              </tr>
+              </thead>
+              <tbody role="alert" aria-live="polite" aria-relevant="all">
+              <%  @menusPorHacer.each do |menu| %>
+                  <tr>
+                    <td><%= menu.date %></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+

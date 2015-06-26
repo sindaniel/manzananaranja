@@ -38,11 +38,52 @@
 
 
       <li class="sub-menu">
-        <a href="<%= admin_menuclientes_path %>" >
+        <%= link_to 'Menú clientes',admin_menuclientes_path, :method=>'get'  %>
+
+      </li>
+
+
+
+      <li class="sub-menu">
+        <a href="<%= admin_services_path %>" >
           <i class="fa fa-cogs"></i>
-          <span>Menú clientes</span>
+          <span>Planes</span>
+        </a>
+      </li>
+
+
+
+      <li class="sub-menu">
+        <a href="<%= admin_planclientes_path %>" >
+          <i class="fa fa-cogs"></i>
+          <span>Planes por Clientes</span>
+        </a>
+      </li>
+
+
+
+      <li class="sub-menu">
+        <a href="<%= admin_texts_path %>" >
+          <i class="fa fa-cogs"></i>
+          <span>Textos generales</span>
         </a>
 
+        <ul class="sub">
+          <li><a  href="<%= admin_texts_path(:id=>1) %>">Que hacemos?</a></li>
+          <li><a  href="<%= admin_texts_path(:id=>2) %>">Planes</a></li>
+          <li><a  href="<%= admin_texts_path(:id=>3) %>">Estilo de vida</a></li>
+          <li><a  href="<%= admin_texts_path(:id=>4) %>">Promesa de servicio</a></li>
+          <li><a  href="<%= admin_texts_path(:id=>5) %>">Preguntas frecuentes</a></li>
+
+        </ul>
+
+
+      </li>
+
+
+      <li class="sub-menu">
+
+        <%= link_to 'Clientes',admin_customers_path, :method=>'get'  %>
       </li>
 
 

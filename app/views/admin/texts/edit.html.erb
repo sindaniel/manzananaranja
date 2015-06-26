@@ -1,0 +1,48 @@
+<div class="col-lg-12">
+  <section class="panel">
+    <header class="panel-heading">
+     <h1><%= @text.title %> </h1>
+    </header>
+    <div class="panel-body">
+
+
+
+
+      <%= form_for @text, :url => admin_text_path, :method=>'PUT' do |f|  %>
+
+
+          <div class="form-group">
+
+
+
+            <div class="col-lg-12">
+              <div class="col-lg-12">
+                <%= f.text_area :description, :class =>'form-control'  %>
+              </div>
+            </div>
+          </div>
+
+          <br/><br/><br/>
+
+          <div class="form-group" style="margin-top: 50px; float: left; width: 100%;;" >
+            <%= f.submit 'Guardar', :class=> 'btn btn-info ' %>
+            <%=  link_to 'Cancelar', admin_texts_path(:id=>@text.category), :class=>'btn btn-warning' %>
+          </div>
+
+
+      <% end %>
+
+
+
+
+
+
+    </div>
+  </section>
+</div>
+
+<script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
+
+<script>
+    CKEDITOR.replace( 'text[description]' );
+</script>

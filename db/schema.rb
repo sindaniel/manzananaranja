@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609065348) do
+ActiveRecord::Schema.define(version: 20150622193955) do
 
   create_table "carbohydrates", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "customers", force: true do |t|
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "password"
+    t.integer  "sex"
+    t.string   "address"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -82,6 +94,15 @@ ActiveRecord::Schema.define(version: 20150609065348) do
     t.datetime "updated_at"
   end
 
+  create_table "planclientes", force: true do |t|
+    t.string   "name"
+    t.integer  "service_id"
+    t.integer  "customers_id"
+    t.integer  "estado",       default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "proteins", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -94,8 +115,25 @@ ActiveRecord::Schema.define(version: 20150609065348) do
     t.datetime "updated_at"
   end
 
+  create_table "services", force: true do |t|
+    t.string   "name"
+    t.integer  "dishes"
+    t.integer  "discount"
+    t.integer  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "soups", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "texts", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "category"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

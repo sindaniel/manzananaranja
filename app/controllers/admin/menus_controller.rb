@@ -5,6 +5,15 @@ class Admin::MenusController < ApplicationController
 
   def index
     @menus = Menu.all
+
+
+    if !params[:date].nil?
+      @menu = Menu.where(:date=>params[:date])
+
+      if !@menu.blank?
+        redirect_to edit_admin_menu_path(@menu[0].id)
+      end
+    end
   end
 
   def new
@@ -13,7 +22,32 @@ class Admin::MenusController < ApplicationController
 
 
     @menu = Menu.new
-    @menu.date = Menu.last.date + 1.day
+
+
+    siguienteDia =  Menu.last.date + 1.day
+
+
+    #valido que no sea sabado 6 o domingo 7
+    siguienteDiaNumero =  siguienteDia.strftime("%w")
+
+    puts siguienteDiaNumero
+
+
+    if siguienteDiaNumero == '6'
+      @menu.date = Menu.last.date + 3.day
+
+    elsif siguienteDiaNumero == 7
+      @menu.date = Menu.last.date + 2.day
+    else
+      @menu.date = Menu.last.date + 1.day
+    end
+
+
+
+
+
+
+
   end
 
   def create

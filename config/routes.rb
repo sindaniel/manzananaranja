@@ -1,14 +1,12 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-  get 'menuclientes/indedx'
-  end
 
   devise_for :users
 
 
-  root 'pages#index'
+  root 'pages#index', as: 'home'
   get 'mi-cuenta.html' => 'pages#micuenta', as: 'micuenta'
+  post 'mi-cuenta.html' => 'pages#micuenta', as: 'micuentapost'
   get 'mi-cuenta-armar-menu-mes.html' => 'pages#armarmenu', as: 'armememu'
   get 'mi-cuenta-menu-del-dia.html' => 'pages#armarmenudia', as: 'menudia'
 
@@ -24,20 +22,20 @@ Rails.application.routes.draw do
   get 'promesa-de-servicio.html' => 'pages#promesadeservicio', as: 'promesadeservicio'
   get 'preguntas-frecuentes.html' => 'pages#preguntasfrecuentes', as: 'preguntasfrecuentes'
   get 'informe-nutricional.html' => 'pages#informenutricional', as: 'informenutricional'
-
   get 'simulador-ahorro.html' => 'pages#simulador', as: 'simulador'
-
   get 'contacto.html' => 'pages#contacto', as: 'contacto'
-
-
   get 'mi-cuenta-editar-datos.html' => 'pages#micuentaeditar', as: 'micuentaeditar'
-
-
+  post 'mi-cuenta-editar-datos.html' => 'pages#micuentaeditarpost', as: 'micuentaeditarpost'
   get 'mi-plan.html' => 'pages#miplan', as: 'miplan'
+  get 'mi-cuenta-comprar.html' => 'pages#comprar', as: 'comprar'
 
 
 
+  get 'saveUser' => 'pages#saveUser', as: 'saveUser'
 
+
+
+  get 'festivos' => 'pages#getFestivos', as: 'getfestivos'
 
 
   post 'agregarmenudia' => 'pages#agregarmenudia', as: 'agregarmenudia'
@@ -47,6 +45,9 @@ Rails.application.routes.draw do
 
   get 'getmenus' => 'pages#getMenus', as: 'getmenus'
 
+  get 'getmenusmes', to: 'customers#getmenus', as: 'getmenusmes'
+
+  get 'getdaydisponible', to: 'pages#getdaydisponible', as: 'getdaydisponible'
 
 
   namespace :admin do
@@ -55,13 +56,25 @@ Rails.application.routes.draw do
   namespace :admin do
     get '', to: 'dashboard#index', as: '/'
 
+
+    get 'menudiacsv', to: 'menuclientes#menudiacsv', as: 'menudiacsv'
+    get 'searchcustomer', to: 'customers#searchcustomer', as: 'searchcustomer'
+    get 'viewcustomer', to: 'customers#viewcustomer', as: 'viewcustomer'
+
+
+
+
     resources :soups,
               :woks,
               :proteins,
               :carbohydrates,
               :salads,
               :menus,
-              :menuclientes
+              :menuclientes,
+              :services,
+              :planclientes,
+              :texts,
+              :customers
 
   end
 

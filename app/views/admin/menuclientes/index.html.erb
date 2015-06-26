@@ -31,11 +31,19 @@
             <div class="row-fluid">
 
               <div class="span6">
+                <form action="">
+                  <input type="text" name="date"  id="date" class="" placeholder="Ingrese la fecha" readonly />
+                  <input type="Submit" value="Consultar"/>
+                </form>
 
+                <br/><br/><br/>
               </div></div>
 
 
-            <table class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+
+            <%   if !params[:date].nil?  and !params[:date].blank? and !@menusNombreCliente.blank? %>
+                <h1><%= params[:date] %></h1>
+            <table  class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
               <thead>
 
 
@@ -48,6 +56,8 @@
               <th rowspan="1" colspan="1">Ensalada</th>
 
               <th rowspan="1" colspan="1">Usuario</th>
+              <th rowspan="1" colspan="1">Direccion</th>
+              <th rowspan="1" colspan="1">Fecha de creacion</th>
               </thead>
 
               <tfoot>
@@ -63,11 +73,25 @@
 
 
                 <th rowspan="1" colspan="1">Usuario</th>
+                <th rowspan="1" colspan="1">Direccion</th>
+                <th rowspan="1" colspan="1">Fecha de creacion</th>
+
 
               </tfoot>
               <tbody role="alert" aria-live="polite" aria-relevant="all">
+              <% index = 0 %>
 
-              <% @menus.each do |menu| %>
+              <%
+                 protein = []
+                 wok = []
+
+              %>
+
+              <% @menusNombreCliente.each do |menu| %>
+
+
+
+
                   <tr>
                     <td><%=  menu.date %></td>
                     <td><%=  menu.protein.name %></td>
@@ -75,15 +99,148 @@
                     <td><%=  menu.soup.name %></td>
                     <td><%=  menu.carbohydrate.name %></td>
                     <td><%=  menu.salad.name %></td>
-                    <td>Usuario de prueba</td>
+                    <td> <%= menu.firstname %> <%= menu.lastname %></td>
+                    <td><%= menu.address %></td>
+                    <td><%= menu.updated_at %></td>
 
                   </tr>
-
+                  <% index = index +1 %>
               <% end %>
 
 
               </tbody>
             </table>
+
+
+
+            <hr/>
+
+
+            <hr/>
+
+
+
+
+            <h1>Totales</h1>
+
+            <div class="row">
+                <div class="col-md-3">
+                  <h2>Proteinas</h2>
+                    <table  class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+                      <thead>
+                      <th rowspan="1" colspan="1">Nombre</th>
+                      <th rowspan="1" colspan="1">Cantidad</th>
+                      </thead>
+                      <tbody role="alert" aria-live="polite" aria-relevant="all">
+                      <% @proteinas.each do |item| %>
+                          <tr>
+                            <td><%=  item.name %></td>
+                            <td><%=  item.total %></td>
+                          </tr>
+                      <% end %>
+                      </tbody>
+                    </table>
+                </div>
+
+
+
+
+              <div class="col-md-3">
+                <h2>Ensaldas</h2>
+                <table  class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+                  <thead>
+                  <th rowspan="1" colspan="1">Nombre</th>
+                  <th rowspan="1" colspan="1">Cantidad</th>
+                  </thead>
+                  <tbody role="alert" aria-live="polite" aria-relevant="all">
+                  <% @ensaladas.each do |item| %>
+                      <tr>
+                        <td><%=  item.name %></td>
+                        <td><%=  item.total %></td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+
+
+
+              <div class="col-md-3">
+                <h2>Woks</h2>
+                <table  class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+                  <thead>
+                  <th rowspan="1" colspan="1">Nombre</th>
+                  <th rowspan="1" colspan="1">Cantidad</th>
+                  </thead>
+                  <tbody role="alert" aria-live="polite" aria-relevant="all">
+                  <% @woks.each do |item| %>
+                      <tr>
+                        <td><%=  item.name %></td>
+                        <td><%=  item.total %></td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+
+
+              <div class="col-md-3">
+                <h2>Sopas</h2>
+                <table  class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+                  <thead>
+                  <th rowspan="1" colspan="1">Nombre</th>
+                  <th rowspan="1" colspan="1">Cantidad</th>
+                  </thead>
+                  <tbody role="alert" aria-live="polite" aria-relevant="all">
+                  <% @sopas.each do |item| %>
+                      <tr>
+                        <td><%=  item.name %></td>
+                        <td><%=  item.total %></td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+
+
+
+
+            </div>
+
+
+            <div class="row">
+
+
+              <div class="col-md-3">
+                <h2>Carbohidratos</h2>
+                <table  class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+                  <thead>
+                  <th rowspan="1" colspan="1">Nombre</th>
+                  <th rowspan="1" colspan="1">Cantidad</th>
+                  </thead>
+                  <tbody role="alert" aria-live="polite" aria-relevant="all">
+                  <% @carbohidratos.each do |item| %>
+                      <tr>
+                        <td><%=  item.name %></td>
+                        <td><%=  item.total %></td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+
+                <br/><br/><br/>
+
+                <%= link_to 'Exportar', admin_menudiacsv_path(format: "csv", :date=>params[:date]), :class=>'btn btn-shadow btn-primary' %>
+            <% else %>
+            <h1>No se encontraron registros con esta fecha</h1>
+            <% end %>
+
+
+
+
             <div class="row-fluid">
               <div class="span6">
 
@@ -108,8 +265,32 @@
 
     <%= stylesheet_link_tag    'admin/advanced-datatable/media/css/demo_page',
                                'admin/advanced-datatable/media/css/demo_table',
-                               'admin/data-tables/DT_bootstrap'
+                               'admin/data-tables/DT_bootstrap',
+                                'admin/bootstrap-datepicker.css'
     %>
 
 
+<% end %>
+
+
+
+<% content_for :footer do %>
+
+    <%= javascript_include_tag 'admin/bootstrap-datepicker' %>
+
+
+    <script>
+
+        $('input#date').datepicker({
+            format: "yyyy-mm-dd",
+            language: "es",
+            orientation: "bottom auto",
+            toggleActive: true,
+            changeDate: function (date){
+                console.log(date)
+            },
+        });
+
+
+    </script>
 <% end %>

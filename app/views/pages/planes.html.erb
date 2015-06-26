@@ -30,73 +30,145 @@
 
             <tr>
               <th>Descuento</th>
-              <td><div class="product-price"><span class="price"> 10% </span></div></td>
-              <td><div class="product-price"><span class="price"> 15% </span></div></td>
-              <td><div class="product-price"><span class="price"> 20% </span></div></td>
-              <td><div class="product-price"><span class="price"> 30% </span></div></td>
+              <td><div class="product-price"><span class="price"> <%= @plans[0].discount %>% </span></div></td>
+              <td><div class="product-price"><span class="price"> <%= @plans[1].discount %>% </span></div></td>
+              <td><div class="product-price"><span class="price"> <%= @plans[2].discount %>% </span></div></td>
+              <td><div class="product-price"><span class="price"> <%= @plans[3].discount %>% </span></div></td>
               <td><div class="product-price"><span class="price"> - </span></div></td>
             </tr>
 
             <tr>
               <th>Número de Platos</th>
-              <td><p class="text">5<p></td>
-              <td><p class="text">10</p></td>
-              <td><p class="text">15</p></td>
-              <td><p class="text">20</p></td>
+              <td><p class="text"><%= @plans[0].dishes %><p></td>
+              <td><p class="text"><%= @plans[1].dishes %></p></td>
+              <td><p class="text"><%= @plans[2].dishes %></p></td>
+              <td><p class="text"><%= @plans[3].dishes %></p></td>
               <td><p class="text">20</p></td>
             </tr>
 
             <tr>
               <th>Semanas</th>
-              <td><p class="text">1<p></td>
-              <td><p class="text">2</p></td>
-              <td><p class="text">3</p></td>
-              <td><p class="text">4</p></td>
+              <td><p class="text"><%= @plans[0].dishes/5 %><p></td>
+              <td><p class="text"><%= @plans[1].dishes/5 %></p></td>
+              <td><p class="text"><%= @plans[2].dishes/5 %></p></td>
+              <td><p class="text"><%= @plans[3].dishes/5 %></p></td>
               <td><p class="text">-</p></td>
             </tr>
 
             <tr>
               <th>Precio de Venta por Almuerzo + Bebida</th>
-              <td><p class="text">$ 89.500<p></td>
-              <td><p class="text">$ 179.000</p></td>
-              <td><p class="text">$ 268.500</p></td>
-              <td><p class="text">$ 358.000</p></td>
+              <td><p class="text"><%= number_to_currency(@plans[0].price) %><p></td>
+              <td><p class="text"><%= number_to_currency(@plans[1].price) %></p></td>
+              <td><p class="text"><%= number_to_currency(@plans[2].price) %></p></td>
+              <td><p class="text"><%= number_to_currency(@plans[3].price) %></p></td>
               <td><p class="text">$ 17.900</p></td>
             </tr>
 
             <tr>
               <th>Total sin Descuento</th>
-              <td><p class="text">$ 89.500<p></td>
-              <td><p class="text">$ 179.000</p></td>
-              <td><p class="text">$ 268.500</p></td>
-              <td><p class="text">$ 358.000</p></td>
+              <td><p class="text"><%= number_to_currency(@plans[0].price) %><p></td>
+              <td><p class="text"><%= number_to_currency(@plans[1].price) %></p></td>
+              <td><p class="text"><%= number_to_currency(@plans[2].price) %></p></td>
+              <td><p class="text"><%= number_to_currency(@plans[3].price) %></p></td>
               <td><p class="text">$ 358.000</p></td>
             </tr>
 
             <tr>
               <th>Total con Descuento</th>
-              <td><p class="text">$ 80.550<p></td>
-              <td><p class="text">$ 152.150</p></td>
-              <td><p class="text">$ 214.800</p></td>
-              <td><p class="text">$ 250.600</p></td>
-              <td><p class="text">$ 358.000</p></td>
+
+              <td>
+                <p class="text">
+                <% descuento = @plans[0].discount/100.to_f %>
+                <% total =  @plans[0].price * descuento  %>
+                <%=  number_to_currency @plans[0].price-total %>
+                <p>
+              </td>
+              <td>
+                <p class="text">
+                  <% descuento = @plans[1].discount/100.to_f %>
+                  <% total =  @plans[1].price * descuento  %>
+                  <%=  number_to_currency @plans[1].price-total %>
+                <p>
+              </td>
+              <td>
+                <p class="text">
+                  <% descuento = @plans[2].discount/100.to_f %>
+                  <% total =  @plans[2].price * descuento  %>
+                  <%=  number_to_currency @plans[2].price-total %>
+                <p>
+              </td>
+              <td><p class="text">
+                <% descuento = @plans[3].discount/100.to_f %>
+                <% total =  @plans[3].price * descuento  %>
+                <%=  number_to_currency @plans[3].price-total %>
+                <p></td>
+              <td><p class="text">
+                <% descuento = @plans[0].discount/100.to_f %>
+                <% total =  @plans[0].price * descuento  %>
+                <%=  number_to_currency @plans[0].price-total %>
+                <p></td>
             </tr>
 
             <tr  class="tr-gris">
               <th>Ahorro</th>
-              <td><span class="price">$ 8.950</span></td>
-              <td><span class="price">$ 26.850</span></td>
-              <td><span class="price">$ 53.700</span></td>
-              <td><span class="price">$ 107.400</span></td>
+              <td>
+                <span class="price">
+                    <% descuento = @plans[0].discount/100.to_f %>
+                    <%= number_to_currency @plans[0].price * descuento  %>
+                </span>
+              </td>
+              <td>
+                 <span class="price">
+
+                    <% descuento = @plans[1].discount/100.to_f %>
+                   <%= number_to_currency @plans[1].price * descuento  %>
+                </span>
+              </td>
+              <td>
+                 <span class="price">
+                    <% descuento = @plans[2].discount/100.to_f %>
+                   <%= number_to_currency @plans[2].price * descuento  %>
+                </span>
+              </td>
+              <td>
+                 <span class="price">
+                    <% descuento = @plans[3].discount/100.to_f %>
+                   <%= number_to_currency @plans[3].price * descuento  %>
+                </span>
+              </td>
               <td><span class="price">-</span></td>
             </tr>
 
             <tr>
               <th>Costo menú por día</th>
-              <td><span class="price">$ 16.110</span></td>
-              <td><span class="price">$ 15.215</span></td>
-              <td><span class="price">$ 14.320</span></td>
-              <td><span class="price">$ 12.530</span></td>
+              <td>
+                <span class="price">
+                <% descuento = @plans[0].discount/100.to_f %>
+                <% total =  @plans[0].price * descuento  %>
+                <%=  number_to_currency (@plans[0].price-total)/@plans[0].dishes %>
+                </span>
+              </td>
+              <td>
+                <span class="price">
+                <% descuento = @plans[1].discount/100.to_f %>
+                  <% total =  @plans[1].price * descuento  %>
+                  <%=  number_to_currency (@plans[1].price-total)/@plans[1].dishes %>
+                </span>
+              </td>
+              <td>
+                <span class="price">
+                <% descuento = @plans[2].discount/100.to_f %>
+                  <% total =  @plans[2].price * descuento  %>
+                  <%=  number_to_currency (@plans[2].price-total)/@plans[2].dishes %>
+                </span>
+              </td>
+              <td>
+                <span class="price">
+                <% descuento = @plans[3].discount/100.to_f %>
+                  <% total =  @plans[3].price * descuento  %>
+                  <%=  number_to_currency (@plans[3].price-total)/@plans[3].dishes %>
+                </span>
+              </td>
               <td><span class="price">$ 17.900</span></td>
             </tr>
 
@@ -104,10 +176,10 @@
 
             <tr >
               <th class="sin-borde02"></th>
-              <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
-              <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
-              <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
-              <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
+              <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html?plan=<%= @plans[0].id %>"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
+              <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html?plan=<%= @plans[1].id %>"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
+              <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html?plan=<%= @plans[2].id %>"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
+              <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html?plan=<%= @plans[3].id %>"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
               <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
             </tr>
           </table>
@@ -138,9 +210,8 @@
             <div class="row">
               <div class="col-md-2"><img src="assets/images/iconos/13.png"></div>
               <div class="col-md-10">
-                <h2 style="color:#F36A20">PLAN DESPERTAR</h2>
-                <h5>Vivimos en un mundo donde muchos seres humanos viven “dormidos, como manejando un avión en piloto automático. Con este plan daremos inicio a un proceso de conocimiento a la importancia de crear hábitos de alimentación saludables, el cual esta dirigido a los amantes del buen comer, que le gusta cuidarse, que no cuentan con tiempo de cocinar en su día a día o se encuentran con movilidad reducida.</h5>
-                <h5>No lo dudes mas! Despierta a este nuevo estilo de vida, te veras mejor y te mantendrás mas enérgico y saludable. </h5>
+                <h2 style="color:#F36A20"><%= raw @textsGenerals[9].title %></h2>
+                <%= raw @textsGenerals[9].description %>
               </div></div>
           </div></div><!-- /.tab-pane -->
 
@@ -148,9 +219,8 @@
             <div class="row">
               <div class="col-md-2"><img src="assets/images/iconos/14.png"></div>
               <div class="col-md-10">
-                <h2 style="color:#F36A20">PLAN CONCIENCIA</h2>
-                <h5>Todos soñamos con tener un cuerpo perfecto,  una mente brillante… porque no dejar des soñar?  A través de este plan queremos comenzar contigo un camino de concientización donde aprenderás a conocer un poco mas a tu cuerpo, como mejorarlo a través de una buena alimentación; dejando atrás la planeación de que comer cada día, ir continuamente al supermercado, cocinar los platos, recoger y limpiar la cocina.  Te ofrecemos la posibilidad de vivir una nueva experiencia que te ayudara a crear nuevos hábitos para mejorar tu salud y tu mente.</h5>
-                <h5>Todo lo que hemos vivido es el resultado de lo que hemos estado pensando, así que es hora de crear Conciencia!</h5>
+                <h2 style="color:#F36A20"><%= raw @textsGenerals[10].title %></h2>
+                <%= raw @textsGenerals[10].description %>
               </div></div>
           </div></div><!-- /.tab-pane -->
 
@@ -158,11 +228,8 @@
             <div class="row">
               <div class="col-md-2"><img src="assets/images/iconos/15.png"></div>
               <div class="col-md-10">
-                <h2 style="color:#F36A20">PLAN EQUILIBRIO <small>Mente sana en cuerpo sano</small></h2>
-                <h5>La salud es un estado de equilibrio y bienestar que nos permite vivir de la mejor manera posible.  Para que una alimentación sea sana, debemos cuidar que sea completa al incluir a todos los grupos de alimentos. Para crear buenos hábitos es importante saber qué, cómo, cuándo y cuánto comer.</h5>
-                <h5>
-                  Una alimentación saludable no solo se trata de qué se come sino cómo se come. Con este plan queremos recordarte que somos responsables de nuestra alimentación, luego de crear conciencia debemos  enfocarnos en las comidas que consumimos, como las consumimos y si realmente llevamos un buen control nutricional.</h5>
-                <h5>Una alimentación sana, es una alimentación en equilibrio.</h5>
+                <h2 style="color:#F36A20"><%= raw @textsGenerals[11].title %></h2>
+                <%= raw @textsGenerals[11].description %>
               </div></div>
           </div></div><!-- /.tab-pane -->
 
@@ -170,9 +237,8 @@
             <div class="row">
               <div class="col-md-2"><img src="assets/images/iconos/16.png"></div>
               <div class="col-md-10">
-                <h2 style="color:#F36A20">PLAN ESTILO DE VIDA <small>Una manzana al día</small></h2>
-                <h5>La salud se construye a lo largo de la vida, y sólo se alcanza a través del cuidado de nuestro cuerpo.  Nuestra recomendación es que a través de nuestros planes realices cambios a tu estilo de vida gradualmente, ya que es mucho más fácil que hacerlos de  forma inmediata.</h5>
-                <h5>Te invitamos a comenzar con este nuevo estilo de vida!... Recuerda,  no existen alimentos buenos o malos, sino malos hábitos alimenticios.</h5>
+                <h2 style="color:#F36A20"><%= raw @textsGenerals[12].title %></h2>
+                <%= raw @textsGenerals[12].description %>
               </div></div>
           </div></div><!-- /.tab-pane -->
 
@@ -180,8 +246,8 @@
             <div class="row">
               <div class="col-md-2"><img src="assets/images/iconos/17.png"></div>
               <div class="col-md-10">
-                <h2 style="color:#F36A20">TIQUETERA</h2>
-                <h5>Este plan incluye (20) platos que podran ser unsados en un maximo de 6 semanas</h5>
+                <h2 style="color:#F36A20"><%= raw @textsGenerals[13].title %></h2>
+                <%= raw @textsGenerals[13].description %>
               </div></div>
           </div></div><!-- /.tab-pane -->
 
@@ -193,7 +259,7 @@
 
     <h3><a class="btn btn-primary pad-extra" type="button">¿Quieres que contactemos a tu empresa para que disfrute de LA MANZANA NARANJA?</a></h3>
 
-</div>
+
 
 
 

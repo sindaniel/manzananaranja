@@ -1,5 +1,11 @@
 <div class="container">
 
+  <% if @message %>
+      <script>
+        alert('datos actualizados correctamente')
+      </script>
+  <% end %>
+
   <section class="section featured-product wow fadeInUp">
     <h3 class="tit-inter"><span>Mi Cuenta</span></h3>
 
@@ -10,34 +16,39 @@
     </div>
 
     <div class="col-md-12 contact-form" style="margin:30px 0 50px 0;">
-      <form class="register-form" role="form">
+      <form class="register-form" role="form" method="post">
+
+
+            <input type="hidden" name="authenticity_token"  value="<%= form_authenticity_token %>" />
         <div class="col-md-4 ">
 
           <label class="info-title" for="exampleInputName">Nombre y Apellido <span>*</span></label>
-          <input type="email" class="form-control unicase-form-control text-input" id="exampleInputName" value="Nayith Urruchurtu">
+          <input type="text" class="form-control unicase-form-control text-input" name="firstname" id="exampleInputName" value="<%= @cliente.firstname %>">
         </div>
         <div class="col-md-4">
           <label class="info-title" for="exampleInputEmail1">Email <span>*</span></label>
-          <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" value="nombre@suempresa.com">
+          <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" name="email" value="<%= @cliente.email %>">
         </div>
         <div class="col-md-4">
           <label class="info-title" for="exampleInputTitle">Teléfono <span>*</span></label>
-          <input type="email" class="form-control unicase-form-control text-input" id="exampleInputTitle" value="4440000">
+          <input type="text" class="form-control unicase-form-control text-input" id="exampleInputTitle"  name="phone" value="<%= @cliente.phone %>">
         </div>
         <div class="col-md-4">
           <label class="info-title" for="exampleInputTitle">Contraseña <span>*</span></label>
-          <input type="email" class="form-control unicase-form-control text-input" id="exampleInputTitle" value=".........">
+          <input type="password" class="form-control unicase-form-control text-input" id="exampleInputTitle" name="clave" value="">
         </div>
         <div class="col-md-4">
           <label class="info-title" for="exampleInputTitle">Sexo </label>
-          <select class="form-control unicase-form-control text-input" id="exampleInputTitle" value="Masculino">
-            <option>Masculino</option>
-            <option>Femenino</option>
+
+          <select class="form-control unicase-form-control text-input" id="exampleInputTitle" value="Masculino" name="sex">
+
+            <option <% if @cliente.sex == 1 %>selected<% end %>>Masculino</option>
+            <option <% if @cliente.sex == 2 %>selected<% end %>>Femenino</option>
           </select>
         </div>
         <div class="col-md-4">
           <label class="info-title" for="exampleInputTitle">Dirección de Envio <span>*</span></label>
-          <input type="email" class="form-control unicase-form-control text-input" id="exampleInputTitle" value="calle 35 a # 45 B - 55">
+          <input type="text" class="form-control unicase-form-control text-input" id="exampleInputTitle" value="<%= @cliente.address %>" name="address">
         </div>
         <div class="col-md-12 outer-bottom-small m-t-20">
           <button type="submit" class="btn-upper btn btn-primary checkout-page-button">GUARDAR</button>
@@ -67,11 +78,13 @@
         <span><img src="assets/images/ic-plan.png"></span>
         <h2>MI PLAN</h2>
         <a href="mi-plan.html" class="btn-upper btn btn-primary">Renovar</a>
-      </div></div>btn btn-primary">Renovar</a>
-    </div></div>
+      </div></div></a>
+    </div>
 
 
-</div>
+
+
+
 
 </section><!-- /.section -->
 

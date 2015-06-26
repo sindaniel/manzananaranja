@@ -1,0 +1,56 @@
+<form onsubmit="$('#hero-demo').blur();return false;" class="pure-form" style="border-top: 1px solid #eee;border-bottom:1px solid #eee;background:#fafafa;margin:30px 0;padding:20px 10px;text-align:center">
+  <input id="hero-demo" autofocus type="text" name="q" placeholder="Ingrese el email" style="width:100%;max-width:600px;outline:0">
+</form>
+
+
+
+
+
+<% content_for :head do %>
+
+
+    <%= stylesheet_link_tag    'admin/advanced-datatable/media/css/demo_page',
+                               'admin/advanced-datatable/media/css/demo_table',
+                               'admin/data-tables/DT_bootstrap',
+                               'jquery.auto-complete'
+    %>
+
+
+<% end %>
+
+
+
+<% content_for :footer do %>
+
+    <%= javascript_include_tag 'jquery.auto-complete.min' %>
+
+
+    <script>
+        $(function(){
+            $('#hero-demo').autoComplete({
+                minChars: 1,
+
+                source: function(term, response){
+                    $.getJSON('<%= admin_searchcustomer_path %>', { q: term }, function(data){
+                        console.log(data)
+                        var choices = []
+
+                        $.each(data, function(index, i){
+                            console.log(i)
+                            choices.push(i.email)
+                        })
+
+
+                        response(choices);
+                    });
+                },
+                onSelect: function(event, term, item){
+                    window.location.replace("<%= admin_viewcustomer_path %>?email="+term);
+                }
+            });
+
+        });
+
+
+    </script>
+<% end %>

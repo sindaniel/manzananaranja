@@ -1,6 +1,3 @@
-<%= debug @next %>
-
-
 
 <div class="col-lg-12">
   <section class="panel">
@@ -16,10 +13,19 @@
 
 
           <div class="col-md-12">
-            <%= f.label :date, 'Fecha', :class=>'col-lg-1 col-sm-2 control-label' %>
-            <div class="col-lg-11">
-              <%= f.text_field :date, :class =>'form-control', :readonly=>true  %>
-            </div>
+
+              <%= f.hidden_field :date, :class =>'form-control', :readonly=>true  %>
+              <%
+                 dias =['', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
+              %>
+              <h1><%= @menu.date %> / <small><%= dias[@menu.date.strftime("%w").to_i] %>    </small></h1>
+
+
+          <h2>
+            <%= f.check_box :estado, :class =>''%>
+            <%= f.label :estado, 'Festivo?' %>
+          </h2>
+
           </div>
           <br/>
 
@@ -34,12 +40,11 @@
               </header>
               <br/>
               <%= hidden_field_tag 'menu[protein_ids][]', nil %>
-              <% Protein.all.each do |protein| %>
-                  <div class="form-group">
-                    <%= check_box_tag 'menu[protein_ids][]', protein.id, @menu.protein_ids.include?(protein.id), id: dom_id(protein)  %>
-                    <%= label_tag  dom_id(protein),  protein.name %>
-                  </div>
-              <% end %>
+
+
+              <%= collection_select('menu', 'protein_ids',
+                                    Protein.all(),
+                                    :id, :name, {:selected => @menu.protein_ids, :include_blank => false}, {:multiple => true, :class=>'chosen-select'}) %>
 
             </div>
 
@@ -53,12 +58,10 @@
               </header>
               <br/>
               <%= hidden_field_tag 'menu[carbohydrate_ids][]', nil %>
-              <% Carbohydrate.all.each do |carbohydrate| %>
-                  <div class="form-group">
-                    <%= check_box_tag 'menu[carbohydrate_ids][]', carbohydrate.id, @menu.carbohydrate_ids.include?(carbohydrate.id), id: dom_id(carbohydrate)  %>
-                    <%= label_tag  dom_id(carbohydrate),  carbohydrate.name %>
-                  </div>
-              <% end %>
+              <%= collection_select('menu', 'carbohydrate_ids',
+                                    Carbohydrate.all(),
+                                    :id, :name, {:selected => @menu.carbohydrate_ids, :include_blank => false}, {:multiple => true, :class=>'chosen-select'}) %>
+
 
             </div>
 
@@ -75,12 +78,9 @@
               </header>
               <br/>
               <%= hidden_field_tag 'menu[salad_ids][]', nil %>
-              <% Salad.all.each do |salad| %>
-                  <div class="form-group">
-                    <%= check_box_tag 'menu[salad_ids][]', salad.id, @menu.salad_ids.include?(salad.id), id: dom_id(salad)  %>
-                    <%= label_tag  dom_id(salad),  salad.name %>
-                  </div>
-              <% end %>
+              <%= collection_select('menu', 'salad_ids',
+                                    Salad.all(),
+                                    :id, :name, {:selected => @menu.salad_ids, :include_blank => false}, {:multiple => true, :class=>'chosen-select'}) %>
 
             </div>
 
@@ -95,12 +95,9 @@
               </header>
               <br/>
               <%= hidden_field_tag 'menu[soup_ids][]', nil %>
-              <% Soup.all.each do |soup| %>
-                  <div class="form-group">
-                    <%= check_box_tag 'menu[soup_ids][]', soup.id, @menu.soup_ids.include?(soup.id), id: dom_id(soup)  %>
-                    <%= label_tag  dom_id(soup),  soup.name %>
-                  </div>
-              <% end %>
+              <%= collection_select('menu', 'soup_ids',
+                                    Soup.all(),
+                                    :id, :name, {:selected => @menu.soup_ids, :include_blank => false}, {:multiple => true, :class=>'chosen-select'}) %>
 
             </div>
 
@@ -118,19 +115,15 @@
               </header>
               <br/>
               <%= hidden_field_tag 'menu[wok_ids][]', nil %>
-              <% Wok.all.each do |wok| %>
-                  <div class="form-group">
-                    <%= check_box_tag 'menu[wok_ids][]', wok.id, @menu.wok_ids.include?(wok.id), id: dom_id(wok)  %>
-                    <%= label_tag  dom_id(wok),  wok.name %>
-                  </div>
-              <% end %>
+              <%= collection_select('menu', 'wok_ids',
+                                    Wok.all(),
+                                    :id, :name, {:selected => @menu.wok_ids, :include_blank => false}, {:multiple => true, :class=>'chosen-select'}) %>
 
             </div>
           </div>
 
 
-
-
+          <br/><br/><br/>
 
 
 
@@ -150,3 +143,55 @@
     </div>
   </section>
 </div>
+
+
+
+<% content_for :head do %>
+
+
+    <%= stylesheet_link_tag    'admin/advanced-datatable/media/css/demo_page',
+                               'admin/advanced-datatable/media/css/demo_table',
+                               'admin/data-tables/DT_bootstrap',
+                               'chosen'
+    %>
+
+    <style>
+        .chosen-select{
+            width: 100% !important;
+        }
+
+
+    </style>
+
+
+<% end %>
+
+
+
+<% content_for :footer do %>
+
+
+    <%=
+        javascript_include_tag 'chosen.jquery'
+
+    %>
+
+    <script>
+        var config = {
+            '.chosen-select'           : {},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"95%"}
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+
+
+    </script>
+
+
+<% end %>
+

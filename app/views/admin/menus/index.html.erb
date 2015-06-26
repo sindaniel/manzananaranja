@@ -3,7 +3,7 @@
   <div class="col-lg-12">
     <section class="panel">
       <header class="panel-heading">
-        Proteinas
+        Menu
       </header>
 
 
@@ -26,22 +26,24 @@
 
         <div class="adv-table">
 
-          <%= link_to 'Agregar Menu', new_admin_menu_path, :class=>'btn btn-shadow btn-primary' %>
+          <% # link_to 'Agregar Menu', new_admin_menu_path, :class=>'btn btn-shadow btn-primary', :method=> 'get' %>
+
+          <form action="">
+            <input type="text" name="date"  id="date" class="" placeholder="Ingrese la fecha" readonly />
+            <input type="Submit" value="Consultar"/>
+          </form>
+
+
           <div id="example_wrapper" class="dataTables_wrapper form-inline" role="grid">
-            <div class="row-fluid">
-
-              <div class="span6">
-                <form class="dataTables_filter" id="example_filter">
-                  <label>Buscar: <input type="text" class="form-control" name="codigo"></label>
-                </form>
-              </div></div>
 
 
-            <table class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+            <br/><br/>
+            <table style="display: none" class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
               <thead>
 
 
               <th rowspan="1" colspan="1">Fecha</th>
+              <th>Dia</th>
               <th rowspan="1" colspan="1">Acciones</th>
               </thead>
 
@@ -49,19 +51,38 @@
               <tr>
 
                 <th rowspan="1" colspan="1">Fecha</th>
+                <th>Dia</th>
                 <th rowspan="1" colspan="1">Acciones</th>
 
               </tfoot>
               <tbody role="alert" aria-live="polite" aria-relevant="all">
 
+              <%
+                 dias =['', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
+              %>
+
+
+
               <% @menus.each do |menu| %>
-                  <tr>
-                    <td><%= menu.date %></td>
-                    <td>
-                      <%= link_to 'Editar', edit_admin_menu_path(menu.id), :class=>'btn btn-info' %>
-                      <%# link_to 'Eliminar', {:controller => 'admin/proteins', :action => 'destroy', :id => menu.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
-                    </td>
-                  </tr>
+
+                      <tr>
+                        <td><%= menu.date %> </td>
+                        <td>
+
+                          <% if menu.estado == true %>
+                          <strong>Festivo</strong>
+                          <% else %>
+
+                          <%= dias[menu.date.strftime("%w").to_i] %>
+                          <% end %>
+                        </td>
+                        <td>
+                          <%= link_to 'Editar', edit_admin_menu_path(menu.id), :class=>'btn btn-info',  :method=> 'get' %>
+                          <%# link_to 'Eliminar', {:controller => 'admin/proteins', :action => 'destroy', :id => menu.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
+                        </td>
+                      </tr>
+
+
 
               <% end %>
 
@@ -92,8 +113,32 @@
 
     <%= stylesheet_link_tag    'admin/advanced-datatable/media/css/demo_page',
                                'admin/advanced-datatable/media/css/demo_table',
-                               'admin/data-tables/DT_bootstrap'
+                               'admin/data-tables/DT_bootstrap',
+                               'admin/bootstrap-datepicker.css'
     %>
 
 
+<% end %>
+
+
+
+<% content_for :footer do %>
+
+    <%= javascript_include_tag 'admin/bootstrap-datepicker' %>
+
+
+    <script>
+
+        $('input#date').datepicker({
+            format: "yyyy-mm-dd",
+            language: "es",
+            orientation: "bottom auto",
+            toggleActive: true,
+            changeDate: function (date){
+                console.log(date)
+            },
+        });
+
+
+    </script>
 <% end %>

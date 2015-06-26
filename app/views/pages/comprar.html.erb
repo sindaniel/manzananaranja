@@ -1,0 +1,209 @@
+
+<div class="container">
+
+  <section class="section featured-product wow fadeInUp">
+    <h3 class="tit-inter"><span>Comprar Plan (<%=  @plan.name %>)</span></h3>
+
+    <div class="col-md-5 product-comparison" style="margin:30px 0 50px 0;">
+      <div class="table-responsive table-pas">
+
+        <table class="table table-bordered compare-table inner-top-vs">
+          <tr>
+            <th width="20%" class="sin-borde01"></th>
+            <td width="16%" class="tr-naranja"><%=  @plan.name %></td>
+          </tr>
+
+          <tr>
+            <th>Descuento</th>
+            <td><div class="product-price"><span class="price"> <%=  @plan.discount %>% </span></div></td>
+          </tr>
+
+          <tr>
+            <th>Número de Platos</th>
+            <td><p class="text"><%=  @plan.dishes %><p></td>
+          </tr>
+
+          <tr>
+            <th>Semanas</th>
+            <td><p class="text"><%=  @plan.dishes/5 %><p></td>
+          </tr>
+
+          <tr>
+            <th>Precio de Venta por Almuerzo + Bebida</th>
+            <td><p class="text"><%= number_to_currency @plan.price  %><p></td>
+          </tr>
+
+          <tr>
+            <th>Total sin Descuento</th>
+            <td><p class="text"><%= number_to_currency @plan.price  %><p></td>
+          </tr>
+
+          <tr>
+            <th>Total con Descuento</th>
+            <td>
+              <p class="text">
+
+                <% descuento = @plan.discount/100.to_f %>
+                <% total =  @plan.price * descuento  %>
+                <%=  number_to_currency @plan.price-total %>
+
+              <p></td>
+          </tr>
+
+          <tr  class="tr-gris">
+            <th>Ahorro</th>
+            <td><span class="price">
+              <% descuento = @plan.discount/100.to_f %>
+              <%= number_to_currency @plan.price * descuento  %>
+            </span></td>
+          </tr>
+
+          <tr>
+            <th>Costo menú por día</th>
+            <td><span class="price">
+              <% descuento = @plan.discount/100.to_f %>
+              <% total =  @plan.price * descuento  %>
+              <%=  number_to_currency (@plan.price-total)/@plan.dishes %>
+            </span></td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="col-md-6 contact-form" style="margin:30px 0 50px 0;">
+
+
+      <form method="post" id="payuform" action="https://stg.gateway.payulatam.com/ppp-web-gateway">
+        <input name="merchantId"    type="hidden"  value="532981"   >
+        <input name="ApiKey"     type="hidden"  value="0943zWJ98Lv35XIhXH3jNesBcl" >
+
+
+        <input name="accountId"     type="hidden"  value="532981" >
+
+        <input name="description"   type="hidden"  value="<%=  @plan.name %>"  >
+        <input name="referenceCode" type="hidden"  value="<%=  @plan.name %>" >
+        <input name="amount"        type="hidden"  value="<%=  @plan.price-total %>"   >
+        <input name="tax"           type="hidden"  value="0"  >
+        <input name="taxReturnBase" type="hidden"  value="0" >
+        <input name="currency"      type="hidden"  value="COP" >
+        <input name="signature"     type="hidden"  value="<%= @referencia %>"  >
+        <input name="test"          type="hidden"  value="0" >
+        <input name="buyerEmail"    type="hidden"  value="test@test.com" >
+        <input name="responseUrl"    type="hidden"  value="http://www.test.com/response" >
+        <input name="confirmationUrl"    type="hidden"  value="http://www.test.com/confirmation" >
+        <!--<input name="Submit"        type="submit"  value="Enviar" >-->
+      </form>
+
+
+
+      <form class="register-form" role="form" id="mainform">
+        <input type="hidden"  name="plan" value="<%=  @plan.id %>">
+        <input type="hidden"  name="referencia" value="<%= @referencia %>">
+
+
+
+        <div class="col-md-12">
+          <label class="info-title" for="exampleInputName">Nombres <span>*</span></label>
+          <input type="text" class="form-control unicase-form-control text-input"  name="firstname" id="firstname" >
+        </div>
+
+
+        <div class="col-md-12">
+          <label class="info-title" for="exampleInputName">Apellidos <span>*</span></label>
+          <input type="text" class="form-control unicase-form-control text-input" id="lastname" name="lastname">
+        </div>
+
+
+        <div class="col-md-12">
+          <label class="info-title" for="exampleInputEmail1">Email <span>*</span></label>
+          <input type="text" class="form-control unicase-form-control text-input" i="emailp" name="email">
+        </div>
+
+
+
+        <div class="col-md-12">
+          <label class="info-title" for="exampleInputTitle">Teléfono <span>*</span></label>
+          <input type="text" class="form-control unicase-form-control text-input" id="phone" name="phone">
+        </div>
+
+
+        <div class="col-md-12">
+          <label class="info-title" for="exampleInputTitle">Clave <span>*</span></label>
+          <input type="password" class="form-control unicase-form-control text-input" id="password" name="password">
+        </div>
+
+
+        <div class="col-md-6">
+          <label class="info-title" for="exampleInputTitle">Valor a Pagar</label>
+          <% descuento = @plan.discount/100.to_f %>
+          <% total =  @plan.price * descuento  %>
+
+          <input type="text" class="form-control unicase-form-control text-input" id="" value="<%=  number_to_currency @plan.price-total %>" readonly>
+        </div>
+        <div class="col-md-6">
+          <label class="info-title" for="exampleInputTitle">Dirección <span>*</span></label>
+          <input type="email" class="form-control unicase-form-control text-input" id="" name="address">
+        </div>
+        <div class="col-md-12 outer-bottom-small m-t-20">
+          <button type="submit" id="submit" class="btn-upper btn btn-primary checkout-page-button">PAGAR AHORA</button>
+        </div>
+        <div class="col-md-12">
+          <img src="assets/images/pago.png">
+        </div>
+
+      </form>
+    </div>
+
+  </section><!-- /.section -->
+
+</div><!-- /.container -->
+</div><!-- /#top-banner-and-menu -->
+
+
+
+<% content_for :footer do %>
+<script>
+
+    $(function(){
+
+            $('#submit').click(function(){
+                var data = $( "#mainform" ).serialize();
+                console.log(data)
+
+
+
+
+
+                $.ajax({
+                    url: '<%= saveUser_path %>',
+                    error: function() {
+                        $('#info').html('<p>An error has occurred</p>');
+                    },
+                    data:data,
+                    success: function(data) {
+                       console.log(data[0])
+
+                        if(data[0].estado == 'si'){
+                            alert('Este email ya se encuentra registrado')
+                        }else{
+                            if(data[0].guardoplan == 'si'){
+                                //window.location.replace("<%= miplan_path %>");
+                                $('#payuform').submit();
+                            }
+                        }
+                    },
+                    type: 'GET'
+                });
+
+
+
+
+                return false;
+            })
+
+    })
+
+</script>
+
+<% end%>
