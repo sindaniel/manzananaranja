@@ -17,6 +17,13 @@
 
             <div class="col-lg-12">
               <div class="col-lg-12">
+                <%= f.text_field :title, :class =>'form-control'  %>
+              </div>
+            </div>
+            <br/><br/>   <br/><br/>
+
+            <div class="col-lg-12">
+              <div class="col-lg-12">
                 <%= f.text_area :description, :class =>'form-control'  %>
               </div>
             </div>
@@ -41,8 +48,15 @@
   </section>
 </div>
 
-<script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
 
-<script>
-    CKEDITOR.replace( 'text[description]' );
-</script>
+
+
+<% content_for :footer do %>
+
+    <%= javascript_include_tag 'admin/ckeditor' %>
+
+    <script>
+        CKEDITOR.replace( 'text[description]' );
+    </script>
+
+<% end %>

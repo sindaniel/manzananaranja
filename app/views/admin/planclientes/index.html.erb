@@ -1,7 +1,3 @@
-<%= debug @clientes[2] %>
-
-
-
 <div class="row">
 
   <div class="col-lg-12">
@@ -30,34 +26,34 @@
 
         <div class="adv-table">
 
-          <%= link_to 'Agregar Proteina', new_admin_protein_path, :class=>'btn btn-shadow btn-primary' %>
+
           <div id="example_wrapper" class="dataTables_wrapper form-inline" role="grid">
             <div class="row-fluid">
 
               <div class="span6">
-                <form class="dataTables_filter" id="example_filter">
-                  <label>Buscar: <input type="text" class="form-control" name="codigo"></label>
-                </form>
+
               </div></div>
 
 
-            <table class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+            <table class="display table table-bordered table-striped dataTable" id="tableInfo" aria-describedby="example_info">
               <thead>
 
 
-              <th rowspan="1" colspan="1">Nombre</th>
-              <th rowspan="1" colspan="1">Plan</th>
-              <th rowspan="1" colspan="1">Estado</th>
-              <th rowspan="1" colspan="1">Acciones</th>
+              <th data-sort="string" rowspan="1" colspan="1">Nombre</th>
+              <th data-sort="string" rowspan="1" colspan="1">Plan</th>
+              <th data-sort="string" rowspan="1" colspan="1">Estado</th>
+              <th data-sort="string" rowspan="1" colspan="1">Fecha</th>
+              <th  rowspan="1" colspan="1">Acciones</th>
               </thead>
 
               <tfoot>
               <tr>
 
-                <th rowspan="1" colspan="1">Nombre</th>
-                <th rowspan="1" colspan="1">Plan</th>
-                <th rowspan="1" colspan="1">Estado</th>
-                <th rowspan="1" colspan="1">Acciones</th>
+                <th  rowspan="1" colspan="1">Nombre</th>
+                <th  rowspan="1" colspan="1">Plan</th>
+                <th  rowspan="1" colspan="1">Estado</th>
+                <th  rowspan="1" colspan="1">Fecha</th>
+                <th  rowspan="1" colspan="1">Acciones</th>
 
               </tfoot>
               <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -76,6 +72,9 @@
                                 Pendiente de pago
                           <% end %>
                       <% end %>
+                    </td>
+                    <td>
+                      <%=  cliente.created_at %>
                     </td>
                     <td>
                       <%= link_to 'Editar', edit_admin_protein_path(cliente.id), :class=>'btn btn-info' %>
@@ -115,5 +114,18 @@
                                'admin/data-tables/DT_bootstrap'
     %>
 
+
+
+<% end %>
+
+<% content_for :footer do %>
+
+<%= javascript_include_tag 'admin/stupidtable.min'
+%>
+<script !src="">
+    $(function(){
+        $("#tableInfo").stupidtable();
+    })
+</script>
 
 <% end %>

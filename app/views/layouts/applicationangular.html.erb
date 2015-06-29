@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="socketApp" ng-controller="UserController">
+<head>
+  <title>Manzana Naranja</title>
+  <% javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'bootstrap.min',
+                             'main',
+                             'orange',
+                             'owl.carousel',
+                             'owl.transitions',
+                             'lightbox',
+                             'animate.min',
+                             'rateit',
+                             'bootstrap-select.min'
+  %>
+  <%= yield :head %>
+  <style>
+      .box-verde h1{
+          font-size: 25px;
+      }
+  </style>
+  <% # javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="cnt-home">
+
+  <!--header start-->
+  <%= render 'includes/header' %>
+  <!--header end-->
+
+  <!--sidebar end-->
+
+  <div class="body-content" id="top-banner-and-menu">
+      <%= yield %>
+</div>
+
+
+
+
+
+  <%= render 'includes/footer' %>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-sanitize.js"></script>
+
+  <%=  javascript_include_tag  'jquery-1.11.1.min',
+                               'bootstrap.min',
+                               'jquery.formatter.min',
+
+                               'owl.carousel.min',
+                               'echo.min',
+                               'jquery.easing-1.3.min',
+                               'bootstrap-slider.min',
+                               'jquery.rateit.min',
+                               'lightbox.min',
+
+                               'wow.min',
+                               'scripts'
+  %>
+  <script>
+
+
+      var socketApp = angular.module('socketApp', ['ngSanitize']);
+
+      socketApp.controller('UserController',['$log','$scope',function($log,$scope){
+          $scope.formulario=true;
+
+
+
+
+
+
+          $scope.getData = function(user){
+
+              $('#peso').removeClass('errorA')
+              $('#altura').removeClass('errorA')
+              $('#edad').removeClass('errorA')
+
+
+              if($('#peso').val() == ""){
+                  $('#peso').addClass('errorA')
+                  return false;
+              }
+
+              if($('#altura').val() == ""){
+                  $('#altura').addClass('errorA')
+                  return false;
+              }
+
+              if($('#sexo').val() != "1" && $('#sexo').val() != "2"){
+                  $('#sexo').addClass('errorA')
+                  return false;
+              }
+
+
+
+
+
+              $scope.formulario=false;
+              $scope.resultado=true;
+              altura = $('#altura').val();
+              edad = $('#edad').val();
+              peso = $('#peso').val();
+
+              if(user.sexo == "1"){
+                  $scope.sexoR ="FEMEMINO";
+                  $scope.sexoI = 'assets/images/ic-mujer.png'
+              }else{
+                  $scope.sexoR ="MASCULINO";
+                  $scope.sexoI = 'assets/images/ic-hombre.png'
+              }
+
+
+              $scope.alturaR = altura
+              $scope.pesoR =peso
+
+              masa = peso/(altura*altura)
+
+
+
+
+
+              $scope.masa= masa.toFixed(2);
+
+
+
+
+              if(masa < 18){
+                  $scope.imageI = 'assets/images/ic-mal1.png'
+                  $scope.mensaje = "<small>Cuidado tienes</small><br>¡Peso menor <br>al normal!";
+                  $scope.descripcion = "Cuidado! Actualmente tu IMC indica que estas por debajo de tu peso ideal. Te invitamos a que compres nuestro paquete mensual para asi poder asesorarte en un plan adecuado que te permita lograr un peso saludable."
+
+              }else if(masa >= 18.1 && masa <= 24.9){
+                  $scope.imageI = 'assets/images/ic-bien.png'
+                  $scope.mensaje = "<small>Muy bien tienes un</small> <br />¡Peso  normal!";
+                  $scope.descripcion = "Muy bien!  Actualmente tu IMC(Indice de Masa corporal) indica que tienes un peso normal y se encuentra en un rango de peso saludable. Te invitamos a que compres nuestro paquete mensual para asi poder asesorarte en un plan de mantenimiento que te permita mantener un peso saludable."
+
+              }else if(masa >= 25 && masa <= 29.9){
+                  $scope.imageI = 'assets/images/ic-mal2.png'
+                  $scope.mensaje = "<small>Cuidado tienes</small> <br />¡Sobrepeso!";
+                  $scope.descripcion = "Cuidado! Actualmente tu IMC refleja que sufres de sobrepeso.  Te invitamos a que compres nuestro paquete mensual para asi poder asesorarte en un plan de dieta que te permita lograr un peso saludable."
+
+              }else if(masa >= 30){
+                  $scope.imageI = 'assets/images/ic-mal2.png'
+                  $scope.mensaje = "<small>Cuidado tienes</small> <br />Obesidad!";
+                  $scope.descripcion = "Cuidado! Actualmente tu IMC refleja que sufres de obesidad.  Te invitamos a que compres nuestro paquete mensual para asi poder asesorarte en un plan de dieta que te permita lograr un peso saludable."
+
+              }
+
+
+
+              console.log(masa)
+          }
+
+
+
+      }]);
+
+
+
+
+      $(function(){
+
+          $('#altura').formatter({
+              'pattern': '{{9}}.{{99}}',
+              'persistent': false
+          });
+
+
+          $('#peso').formatter({
+              'pattern': '{{999}}',
+              'persistent': false
+          });
+
+          $('#edad').formatter({
+              'pattern': '{{99}}',
+              'persistent': false
+          });
+
+
+      });
+  </script>
+
+  <%= yield :footer %>
+
+</body>
+</html>

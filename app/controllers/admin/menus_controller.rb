@@ -14,6 +14,8 @@ class Admin::MenusController < ApplicationController
         redirect_to edit_admin_menu_path(@menu[0].id)
       end
     end
+
+    @menucreados = Menu.find_by_sql('SELECT M.id, M.date, M.estado FROM `menus` M  INNER JOIN menuwoks W ON M.id = W.menu_id WHERE  M.estado = 0 GROUP BY M.id ORDER BY DATE ')
   end
 
   def new

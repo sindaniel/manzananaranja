@@ -4,7 +4,7 @@ class Admin::PlanclientesController < ApplicationController
   layout  'admin/layouts/application'
 
   def index
-    @clientes = Customers.all
+    @clientes = Customers.order('created_at DESC').all
   end
 
   def new

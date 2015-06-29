@@ -1,4 +1,13 @@
 <main>
+  <%
+     if @valido[0].estado
+        @e = true
+     else
+       @e = false
+     end
+  %>
+
+
 
 
   <section class="cd-section cd-placeholder-2">
@@ -24,11 +33,11 @@
     <div class="box-x100">
       <div class="barra-ic01 box-none"><img src="assets/images/cesta-vacio.png" alt=""></div>
       <div class="barra-completa">
-        <div id="sopa" class="barra-x20 ">SOPA <br><span class="box-none"></span></div>
-        <div id="wok" class="barra-x20 ">WOK <br><span class="box-none"></span></div>
-        <div id="proteinas" class="barra-x20 ">PROTEINAS <br><span class="box-none"></span></div>
-        <div id="carbo" class="barra-x20">CARBOHIDRATOS<br><span class="box-none"></span></div>
-        <div id="ensalada" class="barra-x20">ENSALADA<br><span class="box-none"></span></div>
+        <div id="sopa" class="barra-x20  <%=  if @e then  'b-color'  end %>">SOPA <br><span class="box-none"><%=  if @e then  @valido[0].soup.name  end %></span></div>
+        <div id="wok" class="barra-x20  <%=  if @e then  'b-color'  end %>">WOK <br><span class="box-none"><%=  if @e then  @valido[0].wok.name  end %></span></div>
+        <div id="proteinas" class="barra-x20  <%=  if @e then  'b-color'  end %>">PROTEINAS <br><span class="box-none"><%=  if @e then  @valido[0].protein.name  end %></span></div>
+        <div id="carbo" class="barra-x20 <%=  if @e then  'b-color'  end %>">CARBOHIDRATOS<br><span class="box-none"><%=  if @e then  @valido[0].carbohydrate.name  end %></span></div>
+        <div id="ensalada" class="barra-x20 <%=  if @e then  'b-color'  end %>">ENSALADA<br><span class="box-none"><%=  if @e then  @valido[0].salad.name  end %></span></div>
       </div>
       <div class="barra-ic02 box-none"><img src="assets/images/cesta-lleno.png" alt=""></div>
     </div>
@@ -143,7 +152,25 @@
         pwok = 0;pcarbo = 0;
         pensalada = 0;
         pproteina = 0;
+
         total = 0;
+
+
+        <% if @valido[0].estado %>
+
+
+            idsopa = <%= @valido[0].soup_id %>;
+        idwok = <%= @valido[0].wok_id %>;
+        idcarbo = <%= @valido[0].carbohydrate_id %>;
+        idensalada = <%= @valido[0].salad_id %>;
+        idproteina = <%= @valido[0].protein_id %>;
+
+        psopa = pwok = pcarbo = pensalada = pproteina = 20
+
+        updateP();
+
+        <% end %>
+
 
         $('.sopa a').click(function(){
             idsopa = $(this).data('idsopa');
@@ -230,6 +257,7 @@
 
         function updateP(){
             total =   psopa + pwok + pcarbo + pensalada + pproteina
+            console.log(total)
             $('#porce span').html(total)
         }
 

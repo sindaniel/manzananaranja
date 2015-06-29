@@ -30,10 +30,10 @@
 
           <form action="">
             <input type="text" name="date"  id="date" class="" placeholder="Ingrese la fecha" readonly />
-            <input type="Submit" value="Consultar"/>
+            <input type="Submit" value="Ver o Editar"/>
           </form>
 
-
+          <%   if !params[:date].nil?  and !params[:date].blank? and !@menus.blank? %>
           <div id="example_wrapper" class="dataTables_wrapper form-inline" role="grid">
 
 
@@ -99,6 +99,77 @@
               </div>
             </div>
           </div>
+
+
+          <% else %>
+              <% if !params[:date].nil? %>
+                  <h1>No se encontraron registros con esta fecha</h1>
+              <% end %>
+          <% end %>
+
+
+
+
+<% if params[:date].nil?  %>
+
+            <h1>Menus Creados</h1>
+          <table style="margin-top: 40px;" class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
+            <thead>
+
+
+            <th rowspan="1" colspan="1">Fecha</th>
+            <th>Dia</th>
+            <th rowspan="1" colspan="1">Acciones</th>
+            </thead>
+
+            <tfoot>
+            <tr>
+
+              <th rowspan="1" colspan="1">Fecha</th>
+              <th>Dia</th>
+              <th rowspan="1" colspan="1">Acciones</th>
+
+            </tfoot>
+            <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+            <%
+               dias =['', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
+            %>
+
+
+
+            <% @menucreados.each do |menu| %>
+
+                <tr>
+                  <td><%= menu.date %> </td>
+                  <td>
+
+                    <% if menu.estado == true %>
+                        <strong>Festivo</strong>
+                    <% else %>
+
+                        <%= dias[menu.date.strftime("%w").to_i] %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to 'Editar', edit_admin_menu_path(menu.id), :class=>'btn btn-info',  :method=> 'get' %>
+                    <%# link_to 'Eliminar', {:controller => 'admin/proteins', :action => 'destroy', :id => menu.id}, :data => {:confirm => 'Estas seguro de eliminar este elemento?'}, :method => 'DELETE',  :class=>'btn btn-danger' %>
+                  </td>
+                </tr>
+
+
+
+            <% end %>
+
+
+            </tbody>
+          </table>
+
+
+          <% end %>
+
+
+
         </div>
       </div>
     </section>

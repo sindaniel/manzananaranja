@@ -120,4 +120,71 @@
       </div>
     </div>
   </div>
-</div> 
+</div>
+
+
+
+<div class="container"  ng-show="resultado">
+  <div class="row single-product" >
+    <h3 class="tit-inter"><span>Informe Nutricional</span></h3>
+    <div class="row salto01">
+      <div class="col-sm-5">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3>Tus Datos Son:</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5 box-dats">
+            <span><img  ng-src="{{sexoI}}"></span>
+            <p>SEXO</p>
+            <h1>{{sexoR}}</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5 box-dats">
+            <span><img src="assets/images/ic-peso.png"></span>
+            <p>PESO ACTUAL</p>
+            <h1>{{pesoR}}<small>Kgr.</small></h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5 box-dats">
+            <span><img src="assets/images/ic-altura.png"></span>
+            <p>ESTATURA</p>
+            <h1>{{alturaR}}<small>Mts.</small></h1>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 pull-right">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3>Resumen de Perfil:</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 box-dats" style="margin:0 0 20px -15px;width:auto;">
+            <p>TU IMC <br>(Indice de Masa Corporal) ES</p>
+            <h1>{{masa}}<br></h1>
+          </div>
+          <div class="col-sm-7 pull-right box-verde for-tex">
+            <span><img  ng-src="{{imageI}}"></span>
+
+            <h1 class="page-title" ng-bind-html="mensaje"></h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 pull-right box-dats" style="margin:0 15px 0 0;">
+            <h2 class="page-title text-center">Te recomendamos:</h2>
+            <div class="col-sm-12">
+              <h4>{{descripcion}}</h4>
+              <a class="btn btn-primary pad-extra" href="#">ADQUIRIR UN PLAN</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -5,9 +5,6 @@ class PagesController < ApplicationController
 
   def index
 
-    @diaInicio =  Date.today
-
-    @siguienteDia =  '3011-07-31'.to_date + 1.day
 
 
 
@@ -98,7 +95,7 @@ class PagesController < ApplicationController
      @valido =  Menucliente.where('date= ? and usuario_id=?', params[:fecha], session[:login])
 
       if !@valido.exists?
-        redirect_to armarmenu_path
+        redirect_to armememu_path
       else
         render layout: 'menu'
       end
@@ -295,6 +292,9 @@ class PagesController < ApplicationController
   end
 
   def informenutricional
+
+    render :action => 'informenutricional', :layout => 'layouts/applicationangular'
+
 
   end
 

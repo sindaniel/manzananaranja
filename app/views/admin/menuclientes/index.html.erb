@@ -33,7 +33,7 @@
               <div class="span6">
                 <form action="">
                   <input type="text" name="date"  id="date" class="" placeholder="Ingrese la fecha" readonly />
-                  <input type="Submit" value="Consultar"/>
+                  <input type="Submit" value="Ver o Editar"/>
                 </form>
 
                 <br/><br/><br/>
@@ -235,7 +235,9 @@
 
                 <%= link_to 'Exportar', admin_menudiacsv_path(format: "csv", :date=>params[:date]), :class=>'btn btn-shadow btn-primary' %>
             <% else %>
-            <h1>No se encontraron registros con esta fecha</h1>
+                <% if !params[:date].nil? %>
+                     <h1>No se encontraron registros con esta fecha</h1>
+                <% end %>
             <% end %>
 
 
