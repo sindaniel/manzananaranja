@@ -55,7 +55,7 @@ Rails.application.routes.draw do
     get 'menus/index'
   end
   namespace :admin do
-    get '', to: 'dashboard#index', as: '/'
+    get '', to: 'menus#index', as: '/'
 
 
     get 'menudiacsv', to: 'menuclientes#menudiacsv', as: 'menudiacsv'
