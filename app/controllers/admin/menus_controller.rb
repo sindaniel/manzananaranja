@@ -34,7 +34,7 @@ class Admin::MenusController < ApplicationController
 
 
 
-    @cuentaregistros = Menu.find_by_sql('SELECT M.id, M.date, M.estado FROM `menus` M  INNER JOIN menuwoks W ON M.id = W.menu_id  GROUP BY M.id ORDER BY DATE ')
+    @cuentaregistros = Menu.find_by_sql('SELECT M.id, M.date, M.estado FROM `menus` M  INNER JOIN menuwoks W ON M.id = W.menu_id  where date>= "'+fechaactual.to_s+'"  GROUP BY M.id ORDER BY DATE ')
 
 
     @totalpaginas = @cuentaregistros.count / limite.to_f
