@@ -65,7 +65,7 @@ class PagesController < ApplicationController
 
 
   def getMenus
-    @menus = Menucliente.find_by_sql(' SELECT C.estado, M.created_at, M.date, C.date AS fechacliente FROM `menuclientes` C LEFT JOIN menus M USING (date) WHERE C.usuario_id='+params[:user])
+    @menus = Menucliente.find_by_sql(' SELECT C.estado, M.created_at, M.date, C.date AS fechacliente, W.wok_id FROM `menuclientes` C LEFT JOIN menus M USING (date) LEFT JOIN menuwoks W ON W.menu_id = M.id   WHERE C.usuario_id='+params[:user])
     render json: @menus
   end
 
@@ -304,6 +304,11 @@ class PagesController < ApplicationController
   end
 
   def contacto
+
+    Mailer.contact().deliver
+    if request.post?
+        MailersController.contacto().deliver
+    end
 
   end
 

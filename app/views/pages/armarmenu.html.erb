@@ -237,13 +237,18 @@
 
                           $('#date'+val.fechacliente).append(' <a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-si.png"></a>');
                       }else{
-                          console.log(val.fechacliente)
                           var actual = new Date();
 
                           if(actual >= new Date(val.fechacliente)){
                               $('#date'+val.fechacliente).append('<img src="assets/images/menu-sin.png">');
                           }else{
-                              $('#date'+val.fechacliente).append(' <a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-no.png"></a>');
+                              if( val.wok_id == null){
+                                  $('#date'+val.fechacliente).append('<img src="assets/images/menu-sin.png">');
+                              }else{
+                                  $('#date'+val.fechacliente).append('<a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-no.png"></a>');
+                              }
+
+
                           }
 
 

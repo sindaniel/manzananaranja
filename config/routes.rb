@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'informe-nutricional.html' => 'pages#informenutricional', as: 'informenutricional'
   get 'simulador-ahorro.html' => 'pages#simulador', as: 'simulador'
   get 'contacto.html' => 'pages#contacto', as: 'contacto'
+  post 'contacto.html' => 'pages#contacto', as: 'contactopost'
   get 'mi-cuenta-editar-datos.html' => 'pages#micuentaeditar', as: 'micuentaeditar'
   post 'mi-cuenta-editar-datos.html' => 'pages#micuentaeditarpost', as: 'micuentaeditarpost'
   get 'mi-plan.html' => 'pages#miplan', as: 'miplan'
