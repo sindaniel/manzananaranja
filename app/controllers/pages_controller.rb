@@ -307,7 +307,7 @@ class PagesController < ApplicationController
 
     Mailer.contact().deliver
     if request.post?
-        MailersController.contacto().deliver
+      
     end
 
   end
