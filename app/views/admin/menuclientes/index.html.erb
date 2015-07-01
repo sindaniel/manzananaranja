@@ -40,7 +40,7 @@
               </div></div>
 
 
-
+<div id="muestra">
             <%   if !params[:date].nil?  and !params[:date].blank? and !@menusNombreCliente.blank? %>
                 <h1><%= params[:date] %></h1>
             <table  class="display table table-bordered table-striped dataTable" id="example" aria-describedby="example_info">
@@ -93,15 +93,15 @@
 
 
                   <tr>
-                    <td><%=  menu.date %></td>
-                    <td><%=  menu.protein.name %></td>
-                    <td><%=  menu.wok.name %></td>
-                    <td><%=  menu.soup.name %></td>
-                    <td><%=  menu.carbohydrate.name %></td>
-                    <td><%=  menu.salad.name %></td>
+                    <td><%=  menu.date.strftime('%Y-%m-%d'); %></td>
+                    <td><%= if  !menu.protein.nil? then menu.protein.name else 'No quiero'  end%></td>
+                    <td><%= if  !menu.wok.nil? then  menu.wok.name else 'No quiero' end %></td>
+                    <td><%= if  !menu.soup.nil? then  menu.soup.name else 'No quiero' end %></td>
+                    <td><%= if  !menu.carbohydrate.nil? then  menu.carbohydrate.name else 'No quiero' end %></td>
+                    <td><%= if  !menu.salad.nil? then  menu.salad.name else 'No quiero' end %></td>
                     <td> <%= menu.firstname %> <%= menu.lastname %></td>
                     <td><%= menu.address %></td>
-                    <td><%= menu.updated_at %></td>
+                    <td><%= menu.updated_at.strftime('%Y-%m-%d %H:%M'); %></td>
 
                   </tr>
                   <% index = index +1 %>
@@ -232,11 +232,22 @@
             </div>
 
                 <br/><br/><br/>
-
+      </div>
                 <%= link_to 'Exportar', admin_menudiacsv_path(format: "csv", :date=>params[:date]), :class=>'btn btn-shadow btn-primary' %>
+      <a href="javascript:imprSelec('muestra')" class="btn btn-shadow btn-primary">Imprimir</a>
             <% else %>
-                <% if !params[:date].nil? %>
-                     <h1>No se encontraron registros con esta fecha</h1>
+                <% if !params[:date].nil? and  !params[:date].blank? %>
+                    <%
+                       fecha =  params[:date].to_date.strftime("%w").to_i
+                    %>
+
+                    <% if fecha == 0 or fecha == 6   %>
+              <h1>Este dia no se puede armar menu, recuerde que es de lunes a viernes</h1>
+                    <% else %>
+              <h1>No se encontraron registros con esta fecha</h1>
+                     <% end %>
+
+
                 <% end %>
             <% end %>
 
@@ -294,5 +305,8 @@
         });
 
 
+
+        function imprSelec(muestra)
+        {var ficha=document.getElementById(muestra);var ventimp=window.open(' ','popimpr');ventimp.document.write(ficha.innerHTML);ventimp.document.close();ventimp.print();ventimp.close();}
     </script>
 <% end %>

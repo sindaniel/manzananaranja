@@ -5,6 +5,12 @@
      else
        @e = false
      end
+
+     if @valido[0].soup.nil? then sopa = 'Hoy no quiero' else  sopa =  @valido[0].soup.name end
+     if @valido[0].wok.nil? then wok = 'Hoy no quiero' else  wok =  @valido[0].wok.name end
+     if @valido[0].protein.nil? then protein = 'Hoy no quiero' else  protein =  @valido[0].protein.name end
+     if @valido[0].carbohydrate.nil? then carbohydrate = 'Hoy no quiero' else  carbohydrate =  @valido[0].carbohydrate.name end
+     if @valido[0].salad.nil? then salad = 'Hoy no quiero' else  salad =  @valido[0].salad.name end
   %>
 
 
@@ -33,11 +39,11 @@
     <div class="box-x100">
       <div class="barra-ic01 box-none"><img src="assets/images/cesta-vacio.png" alt=""></div>
       <div class="barra-completa">
-        <div id="sopa" class="barra-x20  <%=  if @e then  'b-color'  end %>">SOPA <br><span class="box-none"><%=  if @e then  @valido[0].soup.name  end %></span></div>
-        <div id="wok" class="barra-x20  <%=  if @e then  'b-color'  end %>">WOK <br><span class="box-none"><%=  if @e then  @valido[0].wok.name  end %></span></div>
-        <div id="proteinas" class="barra-x20  <%=  if @e then  'b-color'  end %>">PROTEINAS <br><span class="box-none"><%=  if @e then  @valido[0].protein.name  end %></span></div>
-        <div id="carbo" class="barra-x20 <%=  if @e then  'b-color'  end %>">CARBOHIDRATOS<br><span class="box-none"><%=  if @e then  @valido[0].carbohydrate.name  end %></span></div>
-        <div id="ensalada" class="barra-x20 <%=  if @e then  'b-color'  end %>">ENSALADA<br><span class="box-none"><%=  if @e then  @valido[0].salad.name  end %></span></div>
+        <div id="sopa" class="barra-x20  <%=  if @e then  'b-color'  end %>">SOPA <br><span class="box-none"><%=  if @e then sopa  end %></span></div>
+        <div id="wok" class="barra-x20  <%=  if @e then  'b-color'  end %>">WOK <br><span class="box-none"><%=  if @e then  wok  end %></span></div>
+        <div id="proteinas" class="barra-x20  <%=  if @e then  'b-color'  end %>">PROTEINAS <br><span class="box-none"><%=  if @e then protein  end %></span></div>
+        <div id="carbo" class="barra-x20 <%=  if @e then  'b-color'  end %>">CARBOHIDRATOS<br><span class="box-none"><%=  if @e then  carbohydrate  end %></span></div>
+        <div id="ensalada" class="barra-x20 <%=  if @e then  'b-color'  end %>">ENSALADA<br><span class="box-none"><%=  if @e then  salad  end %></span></div>
       </div>
       <div class="barra-ic02 box-none"><img src="assets/images/cesta-lleno.png" alt=""></div>
     </div>
@@ -101,7 +107,7 @@
       <a href="" data-idwok="<%=  wok.id %>"><span><%= cuenta %></span> <strong> <%=  wok.name %></strong></a>
       <% cuenta = cuenta+1 %>
   <% end %>
-  <a href="" data-idsopa="0">Hoy no quiero</a>
+  <a href="" data-idwok="0">Hoy no quiero</a>
 </div> <!-- iten box -->
 
 <div class="cd-member-bio iten-ingre proteinas">
@@ -158,7 +164,7 @@
 
         <% if @valido[0].estado %>
 
-
+///holaaaa
             idsopa = <%= @valido[0].soup_id %>;
         idwok = <%= @valido[0].wok_id %>;
         idcarbo = <%= @valido[0].carbohydrate_id %>;
@@ -174,7 +180,19 @@
 
         $('.sopa a').click(function(){
             idsopa = $(this).data('idsopa');
+
+
+
+
+
+
             texto = $(this).find('strong').html();
+
+
+
+            if(idsopa == 0){
+                texto = 'Hoy no quiero'
+            }
 
             psopa = 20;
             updateP();
@@ -191,6 +209,9 @@
         $('.wok a').click(function(){
             idwok = $(this).data('idwok');
             texto = $(this).find('strong').html();
+            if(idsopa == 0){
+                texto = 'Hoy no quiero'
+            }
 
             pwok = 20;
             updateP();
@@ -207,6 +228,9 @@
         $('.proteinas a').click(function(){
             idproteina = $(this).data('idproteina');
             texto = $(this).find('strong').html();
+            if(idproteina == 0){
+                texto = 'Hoy no quiero'
+            }
 
             pproteina = 20;
             updateP();
@@ -224,6 +248,9 @@
         $('.carbohidratos a').click(function(){
             idcarbo = $(this).data('idcarbo');
             texto = $(this).find('strong').html();
+            if(idcarbo == 0){
+                texto = 'Hoy no quiero'
+            }
 
             pcarbo = 20;
             updateP();
@@ -241,6 +268,9 @@
         $('.ensalada a').click(function(){
             idensalada = $(this).data('idensalada');
             texto = $(this).find('strong').html();
+            if(idensalada == 0){
+                texto = 'Hoy no quiero'
+            }
 
             pensalada = 20;
             updateP();

@@ -65,6 +65,8 @@
 
               <% @menus.each do |menu| %>
 
+
+
                       <tr>
                         <td><%= menu.date %> </td>
                         <td>
@@ -102,11 +104,27 @@
 
 
           <% else %>
-              <% if !params[:date].nil? %>
-                  <h1>No se encontraron registros con esta fecha</h1>
-              <% end %>
+
+
           <% end %>
 
+
+          <% if !params[:nada].nil? %>
+
+              <% if !params[:date1].nil? and  !params[:date1].blank? %>
+                  <%
+                     fecha =  params[:date1].to_date.strftime("%w").to_i
+                  %>
+
+                  <% if fecha == 0 or fecha == 6   %>
+                      <h1>Este dia no se puede armar menu, recuerde que es de lunes a viernes</h1>
+                  <% else %>
+                      <h1>No se encontraron registros con esta fecha</h1>
+                  <% end %>
+
+
+              <% end %>
+              <% end  %>
 
 
 
@@ -140,6 +158,7 @@
 
             <% @menucreados.each do |menu| %>
 
+                <% if !menu.woks.blank?%>
                 <tr>
                   <td><%= menu.date %> </td>
                   <td>
@@ -158,12 +177,17 @@
                 </tr>
 
 
-
+                <% end %>
             <% end %>
 
 
             </tbody>
           </table>
+
+
+
+              <ul class="pagination" id="pagination"></ul>
+
 
 
           <% end %>
@@ -195,20 +219,50 @@
 
 <% content_for :footer do %>
 
-    <%= javascript_include_tag 'admin/bootstrap-datepicker' %>
+    <%= javascript_include_tag 'admin/bootstrap-datepicker',
+                                'admin/twbsPagination'
+    %>
 
 
     <script>
 
-        $('input#date').datepicker({
-            format: "yyyy-mm-dd",
-            language: "es",
-            orientation: "bottom auto",
-            toggleActive: true,
-            changeDate: function (date){
-                console.log(date)
-            },
+
+        $(document).on('ready page:load', function () {
+
+
+            $('input#date').datepicker({
+                format: "yyyy-mm-dd",
+                language: "es",
+                orientation: "bottom auto",
+                toggleActive: true,
+                changeDate: function (date){
+                    console.log(date)
+                },
+            });
+
+
+            $('#pagination').twbsPagination({
+                totalPages: <%= @totalpaginas.ceil %>,
+                visiblePages: 5,
+                href: '?page={{number}}',
+                first: 'Primero',
+                paginationClass: '',
+                last: 'Ultimo',
+                prev: 'Anterior',
+                next: 'Siguiente',
+                onPageClick: function (event, page) {
+                    $('#page-content').text('Page ' + page);
+                    $('.vpager').hide();
+                    $('.cuenta'+page).show()
+                    console.log(page)
+                }
+            });
+
+
+
         });
+
+
 
 
     </script>

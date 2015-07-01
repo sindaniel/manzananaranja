@@ -56,7 +56,7 @@
                         <td><%=  @customer.email %></td>
                         <td><%=  @customer.phone %></td>
                         <td><%=  @customer.address %></td>
-                        <td><%=  @customer.created_at %></td>
+                        <td><%=  @customer.created_at.strftime('%Y-%m-%d %H:%M'); %></td>
                       </tr>
                   </tbody>
                 </table>
@@ -82,7 +82,7 @@
                 <td><%=  @customer.service[0].dishes %></td>
                 <td><%=  @menusGeneral.first.date %></td>
                 <td><%=  @menusGeneral.last.date %></td>
-                <td><%=  @customer.plancliente[0].created_at %></td>
+                <td><%=  @customer.plancliente[0].created_at.strftime('%Y-%m-%d %H:%M'); %></td>
               </tr>
               </tbody>
             </table>
@@ -107,12 +107,12 @@
               <tbody role="alert" aria-live="polite" aria-relevant="all">
               <%  @menusHechos.each do |menu| %>
               <tr>
-                    <td><%= menu.date %></td>
-                    <td><%= menu.soup.name %></td>
-                <td><%= menu.wok.name %></td>
-                <td><%= menu.salad.name %></td>
-                <td><%= menu.carbohydrate.name %></td>
-                <td><%= menu.protein.name %></td>
+                <td><%= menu.date %></td>
+                <td><%= if  menu.soup.nil? then 'Hoy no quiero' else menu.soup.name end%></td>
+            <td><%= if  menu.wok.nil? then 'Hoy no quiero' else menu.wok.name end%></td>
+                <td><%= if  menu.salad.nil? then 'Hoy no quiero' else menu.salad.name end%></td>
+                <td><%= if  menu.carbohydrate.nil? then 'Hoy no quiero' else menu.carbohydrate.name end%></td>
+                <td><%= if  menu.protein.nil? then 'Hoy no quiero' else menu.protein.name end%></td>
 
               </tr>
               <% end %>
