@@ -103,7 +103,12 @@ class PagesController < ApplicationController
 
       end
 
-      @menus = Menucliente.find_by_sql('SELECT  M.date AS "fechacliente", MC.estado, MC.wok_id, M.date FROM `menus` M LEFT JOIN menuwoks W ON W.menu_id = M.id LEFT JOIN menuclientes MC ON MC.date = M.date  WHERE M.date > "2015-07-02"   GROUP BY M.date ORDER BY M.date ASC')
+
+      fechaactual =  DateTime.now.strftime("%Y-%m-%d");
+      fechaactual = fechaactual.to_date + 1.days
+
+
+      @menus = Menucliente.find_by_sql('SELECT  M.date AS "fechacliente", MC.estado, MC.wok_id, M.date FROM `menus` M LEFT JOIN menuwoks W ON W.menu_id = M.id LEFT JOIN menuclientes MC ON MC.date = M.date  WHERE M.date > "'+fechaactual.to_s+'"   GROUP BY M.date ORDER BY M.date ASC')
     #  @menus = Menucliente.find_by_sql(' SELECT C.estado, M.created_at, M.date, C.date AS fechacliente, W.wok_id FROM `menuclientes` C LEFT JOIN menus M USING (date) LEFT JOIN menuwoks W ON W.menu_id = M.id   WHERE C.usuario_id='+session[:login].to_s)
       render json: @menus
     else
