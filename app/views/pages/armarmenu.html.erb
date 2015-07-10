@@ -342,6 +342,44 @@
 
               });
 
+          }).done(function(){
+
+
+
+              <% if  @plancliente.service_id == 5 %>
+
+              $.getJSON( "<%= platosdisponibles_path %>", function( data ) {
+                  var items = [];
+
+                  $.each( data, function( key, val ) {
+
+
+
+
+
+
+                      if(!val.estado){
+
+                          clase = $('#date'+val.date).attr('class')
+                          console.log(clase)
+                          //$('#date'+val.date).append('<img src="assets/images/menu-sin.png">');
+
+                          if(clase != 'edit'){
+                              $('#date'+val.date+" img").hide()
+                              $('#date'+val.date).append('<a href="mi-cuenta-menu-del-dia.html?fecha='+val.date+'"><img src="assets/images/menu-no.png"></a>');
+                          }
+                      }
+
+
+                  });
+
+              });
+              <% end %>
+
+
+
+              
+
           });
 
 
@@ -370,35 +408,6 @@
           });
 
 
-<% if  @plancliente.service_id == 5 %>
-
-          $.getJSON( "<%= platosdisponibles_path %>", function( data ) {
-              var items = [];
-
-              $.each( data, function( key, val ) {
-
-
-
-
-
-
-                  if(!val.estado){
-
-                      clase = $('#date'+val.date).attr('class')
-                      console.log(clase)
-                      //$('#date'+val.date).append('<img src="assets/images/menu-sin.png">');
-
-                      if(clase != 'edit'){
-                          $('#date'+val.date+" img").hide()
-                          $('#date'+val.date).append('<a href="mi-cuenta-menu-del-dia.html?fecha='+val.date+'"><img src="assets/images/menu-no.png"></a>');
-                      }
-                  }
-
-
-              });
-
-          });
-<% end %>
 
 
 
