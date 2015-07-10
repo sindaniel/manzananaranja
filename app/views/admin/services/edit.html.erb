@@ -1,7 +1,7 @@
 <div class="col-lg-12">
   <section class="panel">
     <header class="panel-heading">
-      Editar Proteina
+      Editar <%= @plan.name %>
     </header>
     <div class="panel-body">
 
@@ -31,8 +31,11 @@
             </div>
           </div>
 
-          <br/><br/><br/>
 
+
+          <% if @plan.id != 5 %>
+
+          <br/><br/><br/>
           <div class="form-group">
             <%= f.label :discount, 'Descuento', :class=>'col-lg2 col-sm-2 control-label' %>
             <div class="col-lg-10">
@@ -41,6 +44,7 @@
               </div>
             </div>
           </div>
+              <% end %>
 
 
           <br/><br/><br/>

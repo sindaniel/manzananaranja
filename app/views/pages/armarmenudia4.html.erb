@@ -1,17 +1,29 @@
 <main>
   <%
-     if @valido[0].estado
+
+     sopa = ''
+     wok = ''
+     protein = ''
+     carbohydrate = ''
+     salad = ''
+
+
+     if @valido.exists?
         @e = true
+        if @valido[0].soup_id.nil? then sopa = 'Hoy no quiero' else  sopa =  @valido[0].soup.name end
+        if @valido[0].wok.nil? then  wok = 'Hoy no quiero' else  wok =  @valido[0].wok.name end
+        if @valido[0].protein.nil? then protein = 'Hoy no quiero' else  protein =  @valido[0].protein.name end
+        if @valido[0].carbohydrate.nil? then carbohydrate = 'Hoy no quiero' else  carbohydrate =  @valido[0].carbohydrate.name end
+        if @valido[0].salad.nil? then salad = 'Hoy no quiero' else  salad =  @valido[0].salad.name end
      else
        @e = false
+
+
      end
 
-     if @valido[0].soup.nil? then sopa = 'Hoy no quiero' else  sopa =  @valido[0].soup.name end
-     if @valido[0].wok.nil? then wok = 'Hoy no quiero' else  wok =  @valido[0].wok.name end
-     if @valido[0].protein.nil? then protein = 'Hoy no quiero' else  protein =  @valido[0].protein.name end
-     if @valido[0].carbohydrate.nil? then carbohydrate = 'Hoy no quiero' else  carbohydrate =  @valido[0].carbohydrate.name end
-     if @valido[0].salad.nil? then salad = 'Hoy no quiero' else  salad =  @valido[0].salad.name end
+
   %>
+
 
 
 
@@ -161,8 +173,8 @@
 
         total = 0;
 
-
-        <% if @valido[0].estado %>
+        <% if  @valido.exists? %>
+                <% if @valido[0].estado %>
 
 ///holaaaa
             idsopa = <%= @valido[0].soup_id %>;
@@ -175,6 +187,7 @@
 
         updateP();
 
+        <% end %>
         <% end %>
 
 
@@ -326,6 +339,7 @@
                     async: true,
                     type: "POST",
                     data: {
+                        <% if !@e %> agregar:true,<% end %>
                         proteina:idproteina,
                         sopa:idsopa,
                         carbo:idcarbo,

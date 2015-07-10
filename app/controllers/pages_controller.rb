@@ -48,11 +48,14 @@ class PagesController < ApplicationController
 
   def armarmenu
 
+
+
     if session[:login].nil?
       redirect_to home_path
     else
 
       @plancliente = Plancliente.find_by_customers_id(session[:login])
+      @user = Customers.find_by_id(session[:login])
 
       @menuscliente = Menucliente.where('usuario_id= ?', session[:login])
 
@@ -65,9 +68,76 @@ class PagesController < ApplicationController
 
 
   def getMenus
-    @menus = Menucliente.find_by_sql(' SELECT C.estado, M.created_at, M.date, C.date AS fechacliente, W.wok_id FROM `menuclientes` C LEFT JOIN menus M USING (date) LEFT JOIN menuwoks W ON W.menu_id = M.id   WHERE C.usuario_id='+params[:user])
-    render json: @menus
+
+
+
+
+    user = Customers.find_by_id(session[:login])
+
+    #valido si tiene tiquetera
+    if user.plancliente.last.service_id == 5
+
+
+      fechaDisponible = user.plancliente.last.updated_at
+      disponible = fechaDisponible.strftime("%w").to_i
+      validoHora = true
+      if disponible == 0
+        fechaDisponible  = fechaDisponible + 1.days
+        validoHora = false
+      end
+
+      if disponible == 6
+        fechaDisponible  = fechaDisponible + 2.days
+        validoHora = false
+      end
+
+
+      if validoHora
+
+        horaDeCompra = fechaDisponible.strftime("%H").to_i
+        if horaDeCompra > 10
+          fechaDisponible  = fechaDisponible + 1.days
+        end
+
+
+
+      end
+
+      @menus = Menucliente.find_by_sql('SELECT  M.date AS "fechacliente", MC.estado, MC.wok_id, M.date FROM `menus` M LEFT JOIN menuwoks W ON W.menu_id = M.id LEFT JOIN menuclientes MC ON MC.date = M.date  WHERE M.date > "2015-07-02"   GROUP BY M.date ORDER BY M.date ASC')
+    #  @menus = Menucliente.find_by_sql(' SELECT C.estado, M.created_at, M.date, C.date AS fechacliente, W.wok_id FROM `menuclientes` C LEFT JOIN menus M USING (date) LEFT JOIN menuwoks W ON W.menu_id = M.id   WHERE C.usuario_id='+session[:login].to_s)
+      render json: @menus
+    else
+
+      @menus = Menucliente.find_by_sql(' SELECT C.estado, M.created_at, M.date, C.date AS fechacliente, W.wok_id FROM `menuclientes` C LEFT JOIN menus M USING (date) LEFT JOIN menuwoks W ON W.menu_id = M.id   WHERE C.usuario_id='+session[:login].to_s)
+      render json: @menus
+
+
+
+    end
+
+
+
+
+
+
   end
+
+
+
+
+
+  def platosdisponibles
+
+    fechaactual =  DateTime.now.strftime("%Y-%m-%d");
+    fechaactual = fechaactual.to_date + 1.days
+
+    @menus = Menucliente.find_by_sql(' SELECT C.estado, M.created_at, M.date, C.date AS fechacliente, W.wok_id FROM `menuclientes` C LEFT JOIN menus M USING (date) LEFT JOIN menuwoks W ON W.menu_id = M.id ')
+    @menucreados = Menu.find_by_sql('SELECT M.id, M.date, M.estado FROM `menus` M  INNER JOIN menuwoks W ON M.id = W.menu_id where date>= "'+fechaactual.to_s+'" GROUP BY M.id ORDER BY DATE')
+    render json: @menucreados
+
+
+  end
+
 
 
   def  getdaydisponible
@@ -92,13 +162,35 @@ class PagesController < ApplicationController
       @ingredientes = Menu.find_by_date(params[:fecha])
 
       #valido dia
-     @valido =  Menucliente.where('date= ? and usuario_id=?', params[:fecha], session[:login])
 
-      if !@valido.exists?
-        redirect_to armememu_path
+
+
+      @user = Customers.find_by_id(session[:login])
+      @user.plancliente.last.service_id
+
+
+      if @user.plancliente.last.service_id == 5
+        @valido =  Menucliente.where('date= ? and usuario_id=?', params[:fecha], session[:login])
+
+        render 'armarmenudia4', layout: 'menu'
       else
-        render layout: 'menu'
+
+
+
+        @valido =  Menucliente.where('date= ? and usuario_id=?', params[:fecha], session[:login])
+
+        if !@valido.exists?
+          redirect_to armememu_path
+        else
+          render  layout: 'menu'
+        end
+
+
+
       end
+
+
+
 
 
 
@@ -112,14 +204,57 @@ class PagesController < ApplicationController
 
   def agregarmenudia
 
-    @menuClienteId = Menucliente.where('date= ? and usuario_id=?', params[:fecha], session[:login]).limit(1)
+
+    @user = Customers.find_by_id(session[:login])
+    @user.plancliente.last.service_id
 
 
-    @menuCliente = Menucliente.find_by_id(@menuClienteId[0].id)
+    if @user.plancliente.last.service_id == 5
 
-    #falta poner el usuario
-     @menuCliente.update_attributes(:estado=>1, :protein_id => params[:proteina], :soup_id => params[:sopa], :carbohydrate_id=> params[:carbo], :salad_id => params[:ensalada],:wok_id =>params[:wok])
-    render layout: false
+        if  params[:agregar]
+
+
+          o = Menucliente.new(:estado=>1, :protein_id => params[:proteina], :soup_id => params[:sopa], :carbohydrate_id=> params[:carbo], :salad_id => params[:ensalada],:wok_id =>params[:wok], :date=>params[:fecha], :usuario_id=> session[:login])
+          o.save
+
+        else
+
+
+
+          @menuClienteId = Menucliente.where('date= ? and usuario_id=?', params[:fecha], session[:login]).limit(1)
+
+
+          @menuCliente = Menucliente.find_by_id(@menuClienteId[0].id)
+
+          #falta poner el usuario
+          @menuCliente.update_attributes(:estado=>1, :protein_id => params[:proteina], :soup_id => params[:sopa], :carbohydrate_id=> params[:carbo], :salad_id => params[:ensalada],:wok_id =>params[:wok])
+          render layout: false
+
+
+
+
+        end
+
+
+    else
+
+
+
+      @menuClienteId = Menucliente.where('date= ? and usuario_id=?', params[:fecha], session[:login]).limit(1)
+
+
+      @menuCliente = Menucliente.find_by_id(@menuClienteId[0].id)
+
+      #falta poner el usuario
+      @menuCliente.update_attributes(:estado=>1, :protein_id => params[:proteina], :soup_id => params[:sopa], :carbohydrate_id=> params[:carbo], :salad_id => params[:ensalada],:wok_id =>params[:wok])
+      render layout: false
+
+
+
+
+    end
+
+
   end
 
 

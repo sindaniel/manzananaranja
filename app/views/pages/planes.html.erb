@@ -43,7 +43,7 @@
               <td><p class="text"><%= @plans[1].dishes %></p></td>
               <td><p class="text"><%= @plans[2].dishes %></p></td>
               <td><p class="text"><%= @plans[3].dishes %></p></td>
-              <td><p class="text">20</p></td>
+              <td><p class="text"><%= @plans[4].dishes %></p></td>
             </tr>
 
             <tr>
@@ -52,7 +52,7 @@
               <td><p class="text"><%= @plans[1].dishes/5 %></p></td>
               <td><p class="text"><%= @plans[2].dishes/5 %></p></td>
               <td><p class="text"><%= @plans[3].dishes/5 %></p></td>
-              <td><p class="text">-</p></td>
+              <td><p class="text"></p></td>
             </tr>
 
             <tr>
@@ -61,7 +61,7 @@
               <td><p class="text"><%= number_to_currency(@plans[1].price) %></p></td>
               <td><p class="text"><%= number_to_currency(@plans[2].price) %></p></td>
               <td><p class="text"><%= number_to_currency(@plans[3].price) %></p></td>
-              <td><p class="text">$ 17.900</p></td>
+              <td><p class="text"><%=  number_to_currency (@plans[4].price)/@plans[4].dishes %></p></td>
             </tr>
 
             <tr>
@@ -70,7 +70,7 @@
               <td><p class="text"><%= number_to_currency(@plans[1].price) %></p></td>
               <td><p class="text"><%= number_to_currency(@plans[2].price) %></p></td>
               <td><p class="text"><%= number_to_currency(@plans[3].price) %></p></td>
-              <td><p class="text">$ 358.000</p></td>
+              <td><p class="text"> <%=  number_to_currency @plans[4].price %></p></td>
             </tr>
 
             <tr>
@@ -103,9 +103,8 @@
                 <%=  number_to_currency @plans[3].price-total %>
                 <p></td>
               <td><p class="text">
-                <% descuento = @plans[0].discount/100.to_f %>
-                <% total =  @plans[0].price * descuento  %>
-                <%=  number_to_currency @plans[0].price-total %>
+
+                <%=  number_to_currency @plans[4].price %>
                 <p></td>
             </tr>
 
@@ -169,7 +168,17 @@
                   <%=  number_to_currency (@plans[3].price-total)/@plans[3].dishes %>
                 </span>
               </td>
-              <td><span class="price">$ 17.900</span></td>
+              <td><span class="price">
+
+
+
+
+                <%=  number_to_currency (@plans[4].price)/@plans[4].dishes %>
+
+
+
+
+              </span></td>
             </tr>
 
 
@@ -180,7 +189,7 @@
               <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html?plan=<%= @plans[1].id %>"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
               <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html?plan=<%= @plans[2].id %>"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
               <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html?plan=<%= @plans[3].id %>"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
-              <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
+              <td class='text-center'><a class="lnk btn btn-primary" href="mi-cuenta-comprar.html?plan=<%= @plans[4].id %>"><i class="glyphicon glyphicon-shopping-cart"></i> COMPRAR</a></td>
             </tr>
           </table>
         </div>

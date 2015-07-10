@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
 
   get 'festivos' => 'pages#getFestivos', as: 'getfestivos'
+  get 'platosdisponibles' => 'pages#platosdisponibles', as: 'platosdisponibles'
 
 
   post 'agregarmenudia' => 'pages#agregarmenudia', as: 'agregarmenudia'

@@ -16,9 +16,14 @@
         <div class="col-sm-4">
           <div class="box-dats">
             <p>Usted adquirio el plan:</p>
-            <h1><%= @plancliente.service.name %></h1>
-            <h3><%= @plancliente.service.dishes %> Platos</h3>
-            <h4 class="tex-justo">Sus platos se organizon desde el<br> <b><%= @menuscliente.first.date %></b> hasta el <b><%= @menuscliente.last.date %></b></h4>
+            <h1><%= @user.plancliente.last.service.name %></h1>
+            <h3><%= @user.plancliente.last.service.dishes %> Platos</h3>
+            <% if @user.plancliente.last.service_id == 5 %>
+                HAS ARMADO 5 PLATOS
+            <% else %>
+                <h4 class="tex-justo">Sus platos se organizon desde el<br> <b><%= @menuscliente.first.date %></b> hasta el <b><%= @menuscliente.last.date %></b></h4>
+            <% end %>
+
 
           </div></div>
 
@@ -50,6 +55,8 @@
            anioActual = Date.today.strftime("%Y")
         %>
 
+
+
         <%
            fechaDelPrimerMes = anioActual+'-'+mesActual+'-'+'01'
            fechaDelSegundoMes = fechaDelPrimerMes.to_date + 1.months
@@ -62,15 +69,28 @@
         <% @date = Date.today  %>
         <% fechaDelPrimerMes.to_date.strftime("%w")%>
 
+
+
+
+
+
+        <%
+
+            primerDiaMesActual = Date.today.strftime("%Y")+'-'+mesActual+'-01'
+            primerDiaMesActual =  primerDiaMesActual.to_date
+            primerDiaMesActualNumero =  primerDiaMesActual.strftime("%w").to_i
+            meses = ['', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+        %>
+
+
+
+
+
         <div class="col-md-6">
-          <h3>JUNIO 2015</h3>
+          <h3><%= meses[primerDiaMesActual.strftime("%m").to_i].upcase %> <%= primerDiaMesActual.strftime("%Y").to_i %></h3>
+
           <div class="table-responsive table-meses">
             <table class="table table-bordered inner-top-vs">
-
-
-
-
-
               <tr>
                 <th width="20%">LUNES</th>
                 <th width="20%">MARTES</th>
@@ -80,59 +100,96 @@
               </tr>
 
 
-
-
               <tr>
-                <td id="date2015-06-01"><span>01</span></td>
-                <td id="date2015-06-02"><span>02</span></td>
-                <td id="date2015-06-03"><span>03</span></td>
-                <td id="date2015-06-04"><span>04</span></td>
-                <td id="date2015-06-05"><span>05</span></td>
-              </tr>
+                <% diaAnterior = primerDiaMesActual - 1.days %>
+                <% flag = 0 %>
+                <% for i in 1..25
 
-              <tr>
-                <td id="date2015-06-08"><span>08</span></td>
-                <td id="date2015-06-09"><span>09</span></td>
-                <td id="date2015-06-10"><span>10</span></td>
-                <td id="date2015-06-11"><span>11</span></td>
-                <td id="date2015-06-12"><span>12</span></td>
-              </tr>
-
-              <tr>
-                <td id="date2015-06-15"><span>15</span></td>
-                <td id="date2015-06-16"><span>16</span></td>
-                <td id="date2015-06-17"><span>17</span></td>
-                <td id="date2015-06-18"><span>18</span></td>
-                <td id="date2015-06-19"><span>19</span></td>
-              </tr>
-
-              <tr>
-                <td id="date2015-06-22"><span>22</span></td>
-                <td id="date2015-06-23"><span>23</span></td>
-                <td id="date2015-06-24"><span>24</span></td>
-                <td id="date2015-06-25"><span>25</span></td>
-                <td id="date2015-06-26"><span>26</span></td>
-              </tr>
+                     if primerDiaMesActualNumero == 6
+                       primerDiaMesActualNumero = 1
+                     end
 
 
-              <tr>
-                <td id="date2015-06-29"><span>29 </span></td>
-                <td id="date2015-06-30"><span>30</span></td>
-                <td><span></span></td>
-                <td><span></span></td>
-                <td ><span></span></td>
-              </tr>
+                %>
 
-            </table>
-          </div>
+
+                    <% if i <  primerDiaMesActualNumero %>
+                        <td width="20%">
+
+                        </td>
+
+
+                    <% else %>
+
+                        <%
+                           flag = flag+1
+
+
+                           fecha = diaAnterior + flag.days
+                           fecha = fecha.to_date
+
+                           diadelasemana = fecha.to_date.strftime("%w").to_i
+
+                           if  diadelasemana == 6
+                             fecha = fecha + 2.days
+                             flag = flag + 2
+                           end
+                           if  diadelasemana == 0
+                             fecha = fecha + 1.days
+                             flag = flag + 1
+                           end
+
+                        %>
+
+
+
+                        <td  <% if primerDiaMesActual.strftime("%m").to_i  ==   fecha .strftime("%m").to_i %> id="date<%= fecha %>" <% end %>>
+                          <span>
+                          <% if primerDiaMesActual.strftime("%m").to_i  ==   fecha .strftime("%m").to_i %>
+                          <%= fecha.strftime("%d")  %>
+                                <% end %>
+                        </span>
+                        </td>
+                    <% end%>
+
+
+                    <% if i%5 == 0 %>
+                        </tr><tr>
+                    <% end %>
+
+
+                <% end %>
+                </tr>
+
+                </table></div>
+
+
+
 
         </div><!--MES 01-->
 
+
+
+
+        <%
+
+
+           mesActual = Date.today + 1.month
+           mesActual = mesActual.strftime("%m")
+
+            primerDiaMesActual = Date.today.strftime("%Y")+'-'+mesActual+'-01'
+            primerDiaMesActual =  primerDiaMesActual.to_date
+            primerDiaMesActualNumero =  primerDiaMesActual.strftime("%w").to_i
+
+
+        %>
+
+
         <div class="col-md-6">
-          <h3>JULIO 2015</h3>
+          <h3><%= meses[primerDiaMesActual.strftime("%m").to_i].upcase %> <%= primerDiaMesActual.strftime("%Y").to_i %></h3>
+
           <div class="table-responsive table-meses">
             <table class="table table-bordered inner-top-vs">
-
               <tr>
                 <th width="20%">LUNES</th>
                 <th width="20%">MARTES</th>
@@ -141,54 +198,76 @@
                 <th width="20%">VIERNES</th>
               </tr>
 
-              <tr>
-                <td><span></span></td>
-                <td><span></span></td>
-                <td id="date2015-07-01"><span>01</span></td>
-                <td id="date2015-07-02"><span>02</span></td>
-                <td id="date2015-07-03"><span>03</span></td>
-              </tr>
 
               <tr>
-                <td id="date2015-07-06"><span>06</span></td>
-                <td id="date2015-07-07"><span>07</span></td>
-                <td id="date2015-07-08"><span>08</span></td>
-                <td id="date2015-07-09"><span>09</span></td>
-                <td id="date2015-07-10"><span>10</span></td>
-              </tr>
+                <% diaAnterior = primerDiaMesActual - 1.days %>
+                <% flag = 0 %>
+                <% for i in 1..25
 
-              <tr>
-                <td id="date2015-07-13"><span>13</span></td>
-                <td id="date2015-07-14"><span>14</span></td>
-                <td id="date2015-07-15"><span>15</span></td>
-                <td id="date2015-07-16"><span>16</span></td>
-                <td id="date2015-07-17"><span>17</span></td>
-              </tr>
-
-              <tr>
-                <td id="date2015-07-20"><span>20</span></td>
-                <td id="date2015-07-21"><span>21</span></td>
-                <td id="date2015-07-22"><span>22</span></td>
-                <td id="date2015-07-23"><span>23</span></td>
-                <td id="date2015-07-24"><span>24</span></td>
-              </tr>
-
-              <tr>
-                <td id="date2015-07-27"><span>27</span></td>
-                <td id="date2015-07-28"><span>28</span></td>
-                <td id="date2015-07-29"><span>29</span></td>
-                <td id="date2015-07-30"><span>30</span></td>
-                <td id="date2015-07-31"><span>31</span></td>
+                 if primerDiaMesActualNumero == 6
+                   primerDiaMesActualNumero = 1
+                 end
+                %>
 
 
 
 
-              </tr>
+                    <% if i <  primerDiaMesActualNumero %>
+                        <td width="20%">
 
-            </table>
-          </div>
+                        </td>
+
+
+                    <% else %>
+
+                        <%
+                           flag = flag+1
+
+
+                           fecha = diaAnterior + flag.days
+                           fecha = fecha.to_date
+
+                           diadelasemana = fecha.to_date.strftime("%w").to_i
+
+                           if  diadelasemana == 6
+                             fecha = fecha + 2.days
+                             flag = flag + 2
+                           end
+                           if  diadelasemana == 0
+                             fecha = fecha + 1.days
+                             flag = flag + 1
+                           end
+
+                        %>
+
+
+
+                        <td  <% if primerDiaMesActual.strftime("%m").to_i  ==   fecha .strftime("%m").to_i %> id="date<%= fecha %>" <% end %>>
+                            <span>
+                          <% if primerDiaMesActual.strftime("%m").to_i  ==   fecha .strftime("%m").to_i %>
+                          <%= fecha.strftime("%d")  %>
+                                <% end %>
+                        </span>
+                        </td>
+                    <% end%>
+
+
+                    <% if i%5 == 0 %>
+                        </tr><tr>
+                    <% end %>
+
+
+                <% end %>
+                </tr>
+
+                </table></div>
+
+
+
 
         </div><!--MES 01-->
+
+
 
       </div><!-- fin tablas-->
 
@@ -224,7 +303,7 @@
       var ready;
       ready = function() {
 //
-          $.getJSON( "<%= getmenus_path %>?user=<%= session[:login] %>", function( data ) {
+          $.getJSON( "<%= getmenus_path %>", function( data ) {
               var items = [];
               $.each( data, function( key, val ) {
 
@@ -234,7 +313,7 @@
                   if(val.date !=null){
 
                       if(val.estado){
-
+                          $('#date'+val.fechacliente).addClass('edit')
                           $('#date'+val.fechacliente).append(' <a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-si.png"></a>');
                       }else{
                           var actual = new Date();
@@ -272,6 +351,7 @@
 
           $.getJSON( "<%= getdaydisponible_path %>?from=<%= @menuscliente.first.date %>&to=<%= @menuscliente.last.date %>", function( data ) {
               var items = [];
+
               $.each( data, function( key, val ) {
 
 
@@ -281,14 +361,45 @@
 
                   if(!val.estado){
 
-                      //$('#date'+val.date+" img").hide()
-                      //$('#date'+val.date).append('<img src="assets/images/menu-sin.png">');
+
                   }
 
 
               });
 
           });
+
+
+<% if  @plancliente.service_id == 5 %>
+
+          $.getJSON( "<%= platosdisponibles_path %>", function( data ) {
+              var items = [];
+
+              $.each( data, function( key, val ) {
+
+
+
+
+
+
+                  if(!val.estado){
+
+                      clase = $('#date'+val.date).attr('class')
+                      console.log(clase)
+                      //$('#date'+val.date).append('<img src="assets/images/menu-sin.png">');
+
+                      if(clase != 'edit'){
+                          $('#date'+val.date+" img").hide()
+                          $('#date'+val.date).append('<a href="mi-cuenta-menu-del-dia.html?fecha='+val.date+'"><img src="assets/images/menu-no.png"></a>');
+                      }
+                  }
+
+
+              });
+
+          });
+<% end %>
+
 
 
 
@@ -302,6 +413,8 @@
 
                 console.log('.'+val.date+" span")
                   $('#date'+val.date+" span").append(' <br><small>(festivo)</small>')
+                  $('#date'+val.date+" a").hide()
+                  $('#date'+val.date+" img").hide()
 
 
 
