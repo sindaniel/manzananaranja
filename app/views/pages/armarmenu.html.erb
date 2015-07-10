@@ -371,6 +371,26 @@
                       }
 
 
+                  }).done(function(){
+
+                      $.getJSON( '<%= getfestivos_path %>', function( data ) {
+                          var items = [];
+
+                          $.each( data, function( key, val ) {
+
+                              console.log('.'+val.date+" span")
+                              $('#date'+val.date+" span").append(' <br><small>(festivo)</small>')
+                              $('#date'+val.date+" a").hide()
+                              $('#date'+val.date+" img").hide()
+
+
+
+                          });
+
+                      });
+
+
+
                   });
 
               });
@@ -378,8 +398,29 @@
 
 
 
-              
 
+
+          }).done(function(){
+
+
+              $.getJSON( '<%= getfestivos_path %>', function( data ) {
+                  var items = [];
+
+                  $.each( data, function( key, val ) {
+
+                      console.log('.'+val.date+" span")
+                      $('#date'+val.date+" span").append(' <br><small>(festivo)</small>')
+                      $('#date'+val.date+" a").hide()
+                      $('#date'+val.date+" img").hide()
+
+
+
+                  });
+
+              });
+
+
+              
           });
 
 
@@ -415,21 +456,7 @@
 
 
 
-          $.getJSON( '<%= getfestivos_path %>', function( data ) {
-              var items = [];
 
-              $.each( data, function( key, val ) {
-
-                console.log('.'+val.date+" span")
-                  $('#date'+val.date+" span").append(' <br><small>(festivo)</small>')
-                  $('#date'+val.date+" a").hide()
-                  $('#date'+val.date+" img").hide()
-
-
-
-              });
-
-          });
 
 
 
