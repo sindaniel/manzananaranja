@@ -1,4 +1,14 @@
 
+<% fechaLiminte =  @user.plancliente.last.updated_at + @user.plancliente.last.service.limite.days %>
+
+<br/>
+
+
+
+
+
+
+
 
   <div class="container">
 
@@ -19,7 +29,7 @@
             <h1><%= @user.plancliente.last.service.name %></h1>
             <h3><%= @user.plancliente.last.service.dishes %> Platos</h3>
             <% if @user.plancliente.last.service_id == 5 %>
-                HAS ARMADO 5 PLATOS
+                <h4 class="tex-justo">Usted puede armar su planto desde<br> <b><%= @menuscliente.first.date %></b> hasta el <b><%= @menuscliente.first.date +  @user.plancliente.last.service.limite.days %></b></h4>
             <% else %>
                 <h4 class="tex-justo">Sus platos se organizon desde el<br> <b><%= @menuscliente.first.date %></b> hasta el <b><%= @menuscliente.last.date %></b></h4>
             <% end %>
@@ -84,7 +94,19 @@
 
 
 
+        <div class="col-md-12">
 
+          <% if fechaLiminte < Time.zone.now.to_date %>
+              <div class="alert alert-success fade in">
+                <button data-dismiss="alert" class="close close-sm" type="button">
+                  <i class="fa fa-times"></i>
+                </button>
+                Tu plan ha expirado para aquirir un nuevo plan ingresa <%= link_to 'aqui', planes_path %>
+              </div>
+
+          <% end %>
+
+        </div>
 
         <div class="col-md-6">
           <h3><%= meses[primerDiaMesActual.strftime("%m").to_i].upcase %> <%= primerDiaMesActual.strftime("%Y").to_i %></h3>
@@ -298,155 +320,160 @@
 </section><!-- /.section -->
 
 </div><!-- /.container -->
-  <script !src="">
 
-      var ready;
-      ready = function() {
+
+<% if fechaLiminte < Time.zone.now.to_date %>
+
+<% else %>
+    <script !src="">
+
+        var ready;
+        ready = function() {
 //
-          $.getJSON( "<%= getmenus_path %>", function( data ) {
-              var items = [];
-              $.each( data, function( key, val ) {
+            $.getJSON( "<%= getmenus_path %>", function( data ) {
+                var items = [];
+                $.each( data, function( key, val ) {
 
 
 
 
-                  if(val.date !=null){
+                    if(val.date !=null){
 
-                      if(val.estado){
-                          $('#date'+val.fechacliente).addClass('edit')
-                          $('#date'+val.fechacliente).append(' <a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-si.png"></a>');
-                      }else{
-                          var actual = new Date();
+                        if(val.estado){
+                            $('#date'+val.fechacliente).addClass('edit')
+                            $('#date'+val.fechacliente).append(' <a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-si.png"></a>');
+                        }else{
+                            var actual = new Date();
 
-                          if(actual >= new Date(val.fechacliente)){
-                              $('#date'+val.fechacliente).append('<img src="assets/images/menu-sin.png">');
-                          }else{
-                              if( val.wok_id == null){
-                                  $('#date'+val.fechacliente).append('<img src="assets/images/menu-sin.png">');
-                              }else{
-                                  $('#date'+val.fechacliente).append('<a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-no.png"></a>');
-                              }
+                            if(actual >= new Date(val.fechacliente)){
+                                $('#date'+val.fechacliente).append('<img src="assets/images/menu-sin.png">');
+                            }else{
+                                if( val.wok_id == null){
+                                    $('#date'+val.fechacliente).append('<img src="assets/images/menu-sin.png">');
+                                }else{
+                                    $('#date'+val.fechacliente).append('<a href="mi-cuenta-menu-del-dia.html?fecha='+val.fechacliente+'"><img src="assets/images/menu-no.png"></a>');
+                                }
 
 
-                          }
+                            }
 
 
-                      }
-                  }else{
+                        }
+                    }else{
 
-                      $('#date'+val.fechacliente).append('<img src="assets/images/menu-sin.png">');
+                        $('#date'+val.fechacliente).append('<img src="assets/images/menu-sin.png">');
 
-                  }
+                    }
 
 
 
-              });
+                });
 
-          }).done(function(){
+            }).done(function(){
 
 
 
-              <% if  @plancliente.service_id == 5 %>
+                <% if  @plancliente.service_id == 5 %>
 
-              $.getJSON( "<%= platosdisponibles_path %>", function( data ) {
-                  var items = [];
+                $.getJSON( "<%= platosdisponibles_path %>", function( data ) {
+                    var items = [];
 
-                  $.each( data, function( key, val ) {
+                    $.each( data, function( key, val ) {
 
 
 
 
 
 
-                      if(!val.estado){
+                        if(!val.estado){
 
-                          clase = $('#date'+val.date).attr('class')
-                          console.log(clase)
-                          //$('#date'+val.date).append('<img src="assets/images/menu-sin.png">');
+                            clase = $('#date'+val.date).attr('class')
+                            console.log(clase)
+                            //$('#date'+val.date).append('<img src="assets/images/menu-sin.png">');
 
-                          if(clase != 'edit'){
-                              $('#date'+val.date+" img").hide()
-                              $('#date'+val.date).append('<a href="mi-cuenta-menu-del-dia.html?fecha='+val.date+'"><img src="assets/images/menu-no.png"></a>');
-                          }
-                      }
+                            if(clase != 'edit'){
+                                $('#date'+val.date+" img").hide()
+                                $('#date'+val.date).append('<a href="mi-cuenta-menu-del-dia.html?fecha='+val.date+'"><img src="assets/images/menu-no.png"></a>');
+                            }
+                        }
 
 
-                  }).done(function(){
+                    }).done(function(){
 
-                      $.getJSON( '<%= getfestivos_path %>', function( data ) {
-                          var items = [];
+                        $.getJSON( '<%= getfestivos_path %>', function( data ) {
+                            var items = [];
 
-                          $.each( data, function( key, val ) {
+                            $.each( data, function( key, val ) {
 
-                              console.log('.'+val.date+" span")
-                              $('#date'+val.date+" span").append(' <br><small>(festivo)</small>')
-                              $('#date'+val.date+" a").hide()
-                              $('#date'+val.date+" img").hide()
+                                console.log('.'+val.date+" span")
+                                $('#date'+val.date+" span").append(' <br><small>(festivo)</small>')
+                                $('#date'+val.date+" a").hide()
+                                $('#date'+val.date+" img").hide()
 
 
 
-                          });
+                            });
 
-                      });
+                        });
 
 
 
-                  });
+                    });
 
-              });
-              <% end %>
+                });
+                <% end %>
 
 
 
 
 
-          }).done(function(){
+            }).done(function(){
 
 
-              $.getJSON( '<%= getfestivos_path %>', function( data ) {
-                  var items = [];
+                $.getJSON( '<%= getfestivos_path %>', function( data ) {
+                    var items = [];
 
-                  $.each( data, function( key, val ) {
+                    $.each( data, function( key, val ) {
 
-                      console.log('.'+val.date+" span")
-                      $('#date'+val.date+" span").append(' <br><small>(festivo)</small>')
-                      $('#date'+val.date+" a").hide()
-                      $('#date'+val.date+" img").hide()
+                        console.log('.'+val.date+" span")
+                        $('#date'+val.date+" span").append(' <br><small>(festivo)</small>')
+                        $('#date'+val.date+" a").hide()
+                        $('#date'+val.date+" img").hide()
 
 
 
-                  });
+                    });
 
-              });
+                });
 
 
 
-          });
+            });
 
 
 
 
 
 
-          $.getJSON( "<%= getdaydisponible_path %>?from=<%= @menuscliente.first.date %>&to=<%= @menuscliente.last.date %>", function( data ) {
-              var items = [];
+            $.getJSON( "<%= getdaydisponible_path %>?from=<%= @menuscliente.first.date %>&to=<%= @menuscliente.last.date %>", function( data ) {
+                var items = [];
 
-              $.each( data, function( key, val ) {
+                $.each( data, function( key, val ) {
 
 
 
 
 
 
-                  if(!val.estado){
+                    if(!val.estado){
 
 
-                  }
+                    }
 
 
-              });
+                });
 
-          });
+            });
 
 
 
@@ -463,13 +490,18 @@
 
 
 
-      };
+        };
 
-      $(document).ready(ready);
-      $(document).on('page:load', ready);
+        $(document).ready(ready);
+        $(document).on('page:load', ready);
 
 
 
 
 
-  </script>
+    </script>
+<% end %>
+<br/>
+<%=fechaLiminte %>
+<br/>
+

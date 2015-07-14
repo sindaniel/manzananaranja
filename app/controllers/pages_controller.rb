@@ -59,9 +59,6 @@ class PagesController < ApplicationController
 
       @menuscliente = Menucliente.where('usuario_id= ?', session[:login])
 
-
-
-
     end
 
   end
@@ -445,10 +442,10 @@ class PagesController < ApplicationController
 
   def contacto
 
-    Mailer.contact().deliver
-    if request.post?
-      
-    end
+    #Mailer.contact().deliver
+   # if request.post?
+
+    #end
 
   end
 

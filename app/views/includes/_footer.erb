@@ -3,11 +3,15 @@
   <div class="links-social"><div class="container"><div class="row">
 
     <div class="col-md-4">
-      <a href="simulador-ahorro.html"><%= image_tag 'bh1.png', :class=>'img-responsive' %></a>
+
+
+      <%= link_to image_tag("bh1.png", :border => 0, :alt => '', :title => ''), simulador_path, :method  =>'get' %>
+
     </div>
 
     <div class="col-md-4">
-      <a href="informe-nutricional.html"><%= image_tag 'bh2.png', :class=>'img-responsive' %></a>
+      <%= link_to image_tag("bh2.png", :border => 0, :alt => '', :title => ''), informenutricional_path, :method  =>'get' %>
+
     </div>
 
     <div class="col-md-4">
