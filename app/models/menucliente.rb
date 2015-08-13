@@ -6,6 +6,7 @@ class Menucliente < ActiveRecord::Base
   belongs_to :protein
   belongs_to :carbohydrate
   belongs_to :salad
+  has_one :customers
 
 
 

@@ -22,8 +22,6 @@ class Admin::PicturesController < ApplicationController
 
     @picture = Picture.find(params[:id])
 
-
-
     if @picture.update_attributes(allowed_params)
       flash[:notice] = 'Información actualizada correctamente'
       redirect_to admin_pictures_path

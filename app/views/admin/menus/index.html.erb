@@ -113,7 +113,7 @@
 
               <% if !params[:date1].nil? and  !params[:date1].blank? %>
                   <%
-                     fecha =  params[:dat].to_date.strftime("%w").to_i
+                     fecha =  params[:date1].to_date.strftime("%w").to_i
                   %>
 
                   <% if fecha == 0 or fecha == 6   %>

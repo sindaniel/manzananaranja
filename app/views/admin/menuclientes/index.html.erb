@@ -236,6 +236,10 @@
                 <%= link_to 'Exportar', admin_menudiacsv_path(format: "csv", :date=>params[:date]), :class=>'btn btn-shadow btn-primary' %>
       <a href="javascript:imprSelec('muestra')" class="btn btn-shadow btn-primary">Imprimir</a>
             <% else %>
+
+
+
+      <%= debug @menusNombreCliente[0] %>
                 <% if !params[:date].nil? and  !params[:date].blank? %>
                     <%
                        fecha =  params[:date].to_date.strftime("%w").to_i

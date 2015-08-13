@@ -4,6 +4,12 @@ class Admin::MenuclientesController < ApplicationController
 
   def index
 
+
+
+    @menusNombreCliente  = Menucliente.find_by_sql('SELECT * FROM `menuclientes` M INNER JOIN customers C ON M.usuario_id = C.id WHERE M.estado=1 AND  M.date = "2015-08-20"')
+
+
+
     if params[:date].nil?
 
 
