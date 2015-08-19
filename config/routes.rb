@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
 
   get 'saveUser' => 'pages#saveUser', as: 'saveUser'
+  get 'salir' => 'pages#salir', as: 'salir'
 
 
 

@@ -4,6 +4,18 @@
   <section class="section featured-product wow fadeInUp">
     <h3 class="tit-inter"><span>Contáctenos</span></h3>
 
+
+
+    <% if @mensaje %>
+        <div class="alert alert-success fade in">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="fa fa-times"></i>
+          </button>
+         Gracias por escribirnos pronto te responderemos
+        </div>
+
+  <% end %>
+
     <div class="col-md-12 contact-form" style="margin:30px 0 50px 0;">
       <form class="register-form"  id="form" method="post">
         <div class="col-md-4">
@@ -30,7 +42,7 @@
         </div>
         <div class="col-md-8">
           <label name="mensaje"  class="info-title" for="exampleInputTitle">Mensaje</label>
-          <textarea id="exampleInputReview" class="form-control txt txt-review" placeholder="" rows="4" data-msg-required="Este campo es requerido" data-rule-required="true"></textarea>
+          <textarea name="mensaje" id="exampleInputReview" class="form-control txt txt-review" placeholder="" rows="4" data-msg-required="Este campo es requerido" data-rule-required="true"></textarea>
         </div>
 
         <div class="col-md-12 outer-bottom-small m-t-20">

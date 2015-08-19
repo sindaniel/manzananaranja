@@ -106,6 +106,26 @@
 
           <% end %>
 
+
+
+
+          <% if !@armar %>
+
+
+              <div class="alert alert-success fade in">
+                <button data-dismiss="alert" class="close close-sm" type="button">
+                  <i class="fa fa-times"></i>
+                </button>
+                Ya no puedes agregar mas menus
+              </div>
+
+          <% end %>
+
+
+
+
+
+
         </div>
 
         <div class="col-md-6">
@@ -298,7 +318,8 @@
         <div class="col-sm-4"><div class="box-dats">
           <span><img src="assets/images/ic-menu.png"></span>
           <h2>MI MENÚ</h2>
-          <a href="mi-cuenta-armar-menu-mes.html" class="btn-upper btn btn-primary">Entrar</a>
+
+          <%= link_to 'Entrar', micuenta_path, :class=>'btn-upper btn btn-primary', :method=>'get' %>
         </div></div>
 
         <div class="col-sm-4"><div class="box-dats">
@@ -311,7 +332,7 @@
         <div class="col-sm-4"><div class="box-dats">
           <span><img src="assets/images/ic-plan.png"></span>
           <h2>MI PLAN</h2>
-          <a href="mi-plan.html" class="btn-upper btn btn-primary">Renovar</a>
+          <%= link_to 'Renovar', miplan_path, :class=>'btn-upper btn btn-primary', :method=>'get' %>
         </div></div></a>
       </div>
 
@@ -325,6 +346,7 @@
 <% if fechaLiminte < Time.zone.now.to_date %>
 
 <% else %>
+    <% if @armar %>
     <script !src="">
 
         var ready;
@@ -374,6 +396,8 @@
 
 
                 <% if  @plancliente.service_id == 5 %>
+
+
 
                 $.getJSON( "<%= platosdisponibles_path %>", function( data ) {
                     var items = [];
@@ -500,8 +524,6 @@
 
 
     </script>
+    <% end %>
 <% end %>
-<br/>
-<%=fechaLiminte %>
-<br/>
 

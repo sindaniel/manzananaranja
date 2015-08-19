@@ -21,9 +21,29 @@
             <span style="float:left;margin:0  20px 0 0;"> <%= image_tag 'tel-top.png' %></span>
             <a href="planes.html" style="float:left;margin:0 0 10px 0"><%= image_tag 'pedidos.png' %></a>
 
-            <%= link_to micuenta_path, :method => 'get' do  %>
-                <%= image_tag 'micuenta.png' %>
-            <% end %>
+
+
+            <div style="width: 161px; float:left">
+
+              <% if session[:login].nil? %>
+                  <%= link_to micuenta_path, :method => 'get' do  %>
+                      <%= image_tag 'micuenta.png' %>
+                  <% end %>
+
+              <% else %>
+
+                  <%= link_to micuenta_path, :method => 'get' do  %>
+                      <%= image_tag 'btn-micuenta-logeado.gif' %>
+                  <% end %>
+
+                  <%= link_to salir_path, :method => 'get', :style=>'float:right' do  %>
+                      <%= image_tag 'btn-salir.gif' %>
+                  <% end %>
+              <% end %>
+
+            </div>
+
+
           </div>
 
           <!-- ============================================================= SHOPPING CART DROPDOWN : END============================================================= -->

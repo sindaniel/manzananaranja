@@ -56,6 +56,35 @@ class PagesController < ApplicationController
 
       @plancliente = Plancliente.find_by_customers_id(session[:login])
       @user = Customers.find_by_id(session[:login])
+      @armar = true;
+
+
+
+      if @user.plancliente.last.service_id == 5
+
+        @plan = Service.find_by_id(5)
+
+
+        creado = @user.plancliente.last.created_at.to_s
+
+        @limite = @user.plancliente.last.created_at + @plan.limite.days
+
+
+        @menusHechos  = Menucliente.find_by_sql('SELECT * FROM `menuclientes` M INNER JOIN customers C ON M.usuario_id = C.id WHERE M.estado=1 AND M.date >= "'+creado+'"   AND M.date<="'+@limite.to_s+'" AND  M.usuario_id = "'+session[:login].to_s+'"')
+
+
+
+        if @menusHechos.count >= @plan.dishes
+          @armar = false
+        end
+
+
+      end
+
+
+
+
+
 
       @menuscliente = Menucliente.where('usuario_id= ?', session[:login])
 
@@ -96,8 +125,6 @@ class PagesController < ApplicationController
           fechaDisponible  = fechaDisponible + 1.days
         end
 
-
-
       end
 
 
@@ -105,8 +132,11 @@ class PagesController < ApplicationController
       fechaactual = fechaactual.to_date + 1.days
 
 
-      @menus = Menucliente.find_by_sql('SELECT  M.date AS "fechacliente", MC.estado, MC.wok_id, M.date FROM `menus` M LEFT JOIN menuwoks W ON W.menu_id = M.id LEFT JOIN menuclientes MC ON MC.date = M.date  WHERE M.date > "'+fechaactual.to_s+'"   GROUP BY M.date ORDER BY M.date ASC')
+     # @menus = Menucliente.find_by_sql('SELECT  M.date AS "fechacliente", MC.estado, MC.wok_id, M.date FROM `menus` M LEFT JOIN menuwoks W ON W.menu_id = M.id LEFT JOIN menuclientes MC ON MC.date = M.date  WHERE M.date > "'+fechaactual.to_s+'"   GROUP BY M.date ORDER BY M.date ASC')
     #  @menus = Menucliente.find_by_sql(' SELECT C.estado, M.created_at, M.date, C.date AS fechacliente, W.wok_id FROM `menuclientes` C LEFT JOIN menus M USING (date) LEFT JOIN menuwoks W ON W.menu_id = M.id   WHERE C.usuario_id='+session[:login].to_s)
+
+    @menus = Menucliente.find_by_sql('SELECT M.date AS "fechacliente", MC.estado, MC.wok_id, M.date FROM `menus` M LEFT JOIN menuwoks W ON W.menu_id = M.id INNER JOIN menuclientes MC ON MC.date = M.date INNER JOIN customers C ON MC.usuario_id = C.id WHERE M.date > "'+fechaactual.to_s+'" AND C.id = '+session[:login].to_s+' AND MC.wok_id IS NOT NULL  GROUP BY W.menu_id ORDER BY M.date ASC')
+
       render json: @menus
     else
 
@@ -134,7 +164,7 @@ class PagesController < ApplicationController
     fechaactual = fechaactual.to_date + 1.days
 
     @menus = Menucliente.find_by_sql(' SELECT C.estado, M.created_at, M.date, C.date AS fechacliente, W.wok_id FROM `menuclientes` C LEFT JOIN menus M USING (date) LEFT JOIN menuwoks W ON W.menu_id = M.id ')
-    @menucreados = Menu.find_by_sql('SELECT M.id, M.date, M.estado FROM `menus` M  INNER JOIN menuwoks W ON M.id = W.menu_id where date>= "'+fechaactual.to_s+'" GROUP BY M.id ORDER BY DATE')
+    @menucreados = Menu.find_by_sql('SELECT M.id, M.date, M.estado FROM `menus` M  INNER JOIN menuwoks W ON M.id = W.menu_id where date> "'+fechaactual.to_s+'" GROUP BY M.id ORDER BY DATE')
     render json: @menucreados
 
 
@@ -172,7 +202,7 @@ class PagesController < ApplicationController
 
 
       if @user.plancliente.last.service_id == 5
-        @valido =  Menucliente.where('date= ? and usuario_id=?', params[:fecha], session[:login])
+        @valido =  Menucliente.where('date= ? and usuario_id=? and estado=1', params[:fecha], session[:login])
 
         render 'armarmenudia4', layout: 'menu'
       else
@@ -307,19 +337,27 @@ class PagesController < ApplicationController
           :email => params[:email],
           :password => params[:password],
           :address => params[:address],
-          :sex => 1,
+          :sex => params[:sex],
       )
       if o.save
 
         plancliente = Plancliente.new
 
         plancliente.customers_id = o.id
-        plancliente.service_id = params[:plan]
+          plancliente.service_id = params[:plan]
         plancliente.name = params[:referencia]
 
         if plancliente.save
           data = [:guardoplan => 'si']
+
+
         end
+
+
+
+
+
+
 
 
 
@@ -387,6 +425,12 @@ class PagesController < ApplicationController
           if dias == diaAgregado
             insertar = false
           end
+
+
+          @planComprado = Service.find_by_id(params[:plan])
+          puts "http://webdaniel.info/mailmanzana/pago.php?nombre="+Rack::Utils.escape(params[:firstname])+"&email="+Rack::Utils.escape(params[:email])+"&platos="+Rack::Utils.escape(@planComprado.dishes)+"&vence="+Rack::Utils.escape(@disponibles[i].date)
+
+          open("http://webdaniel.info/mailmanzana/pago.php?nombre="+Rack::Utils.escape(params[:firstname])+"&email="+Rack::Utils.escape(params[:email])+"&platos="+Rack::Utils.escape(@planComprado.dishes)+"&vence="+Rack::Utils.escape(@disponibles[i].date))
         end
 
 
@@ -443,9 +487,14 @@ class PagesController < ApplicationController
   def contacto
 
     #Mailer.contact().deliver
-   # if request.post?
+    @mensaje = false
+    if request.post?
 
-    #end
+      open("http://webdaniel.info/mailmanzana/contacto.php?tipo="+Rack::Utils.escape(params[:tipo])+"&nombres="+Rack::Utils.escape(params[:nombre])+"&email="+Rack::Utils.escape(params[:email])+"&telefono="+Rack::Utils.escape(params[:telefono])+"&mensaje="+Rack::Utils.escape(params[:mensaje]))
+
+
+      @mensaje = true
+    end
 
   end
 
@@ -491,5 +540,10 @@ class PagesController < ApplicationController
 
   end
 
+
+  def salir
+    session[:login] = nil
+    redirect_to home_path
+  end
 
 end
